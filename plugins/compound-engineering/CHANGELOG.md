@@ -5,6 +5,19 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.29.0] - 2026-02-04
+
+### Added
+
+- **`schema-drift-detector` agent** - Detects unrelated schema.rb changes in PRs
+  - Compares schema.rb diff against migrations in the PR
+  - Catches columns, indexes, and tables from other branches
+  - Prevents accidental inclusion of local database state
+  - Provides clear fix instructions (checkout + migrate)
+  - Essential pre-merge check for any PR with database changes
+
+---
+
 ## [2.28.0] - 2026-01-21
 
 ### Added
