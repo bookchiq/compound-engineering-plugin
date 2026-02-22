@@ -1,0 +1,33 @@
+{
+  "name": "compound-wordpress-engineering",
+  "version": "1.0.0",
+  "description": "AI-powered WordPress development tools. 27 agents, 22 commands, 16 skills, 1 MCP server for code review, research, design, and workflow automation.",
+  "author": {
+    "name": "Sarah Lewis",
+    "url": "https://github.com/bookchiq"
+  },
+  "homepage": "https://github.com/bookchiq/compound-wordpress-engineering",
+  "repository": "https://github.com/bookchiq/compound-wordpress-engineering",
+  "license": "MIT",
+  "keywords": [
+    "ai-powered",
+    "compound-engineering",
+    "workflow-automation",
+    "code-review",
+    "wordpress",
+    "php",
+    "gutenberg",
+    "block-editor",
+    "themes",
+    "plugins",
+    "knowledge-management",
+    "agent-browser",
+    "browser-automation"
+  ],
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
