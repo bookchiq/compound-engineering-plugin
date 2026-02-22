@@ -110,6 +110,8 @@ options:
     description: "Design patterns, hook architecture, separation of concerns (architecture-strategist)"
   - label: "Code simplicity"
     description: "Over-engineering, YAGNI violations (code-simplicity-reviewer)"
+  - label: "Traceability"
+    description: "End-to-end call chain verification, dead code detection (call-chain-verifier, pattern-recognition-specialist)"
 ```
 
 **c. Depth:**
@@ -141,11 +143,12 @@ options:
 - Performance → `performance-oracle`
 - Architecture → `architecture-strategist`
 - Code simplicity → `code-simplicity-reviewer`
+- Traceability → `call-chain-verifier, pattern-recognition-specialist`
 
 **Depth:**
 - Thorough: stack + selected focus areas
 - Fast: stack + `code-simplicity-reviewer` only
-- Comprehensive: all above + `git-history-analyzer, data-integrity-guardian, agent-native-reviewer, schema-drift-detector`
+- Comprehensive: all above + `git-history-analyzer, data-integrity-guardian, agent-native-reviewer, schema-drift-detector, call-chain-verifier, pattern-recognition-specialist`
 
 **Plan review agents:** stack-specific reviewer + `code-simplicity-reviewer`.
 

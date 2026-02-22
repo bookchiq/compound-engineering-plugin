@@ -5,6 +5,19 @@ All notable changes to the compound-wordpress-engineering plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-02-22
+
+### Fixed
+- `workflows:work` command — Removed references to non-existent `linting-agent` (removed in v1.0.0 fork); replaced with generic linting guidance (phpcs, eslint, etc.)
+- `orchestrating-swarms` skill — Added missing `call-chain-verifier` and `wp-ai-building-blocks-reviewer` to review agent inventory list
+- Documentation site — Regenerated all pages to reflect WordPress fork (was still showing upstream Rails/Ruby agents and wrong component counts)
+
+## [1.2.1] - 2026-02-22
+
+### Changed
+- `workflows:review` command — Added conditional TRACEABILITY trigger block for `call-chain-verifier` agent, fires on PRs with `wp_ajax_`, `admin_post_`, `register_rest_route()`, `apiFetch`, `save_post` hooks, meta box save callbacks, or form handlers
+- `setup` skill — Added `call-chain-verifier` and `pattern-recognition-specialist` to Comprehensive depth preset; added "Traceability" focus area mapping both agents
+
 ## [1.2.0] - 2026-02-22
 
 ### Added

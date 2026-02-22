@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Agent Reference - Compounding Engineering</title>
-  <meta content="Complete reference for all 23 specialized AI agents in the Compounding Engineering plugin." name="description" />
+  <title>Agent Reference - Compounding WordPress Engineering</title>
+  <meta content="Complete reference for all 29 specialized AI agents in the Compounding WordPress Engineering plugin." name="description" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -20,7 +20,7 @@
       <div class="sidebar-header">
         <a href="../index.html" class="nav-brand">
           <span class="logo-icon"><i class="fa-solid fa-layer-group"></i></span>
-          <span class="logo-text">CE Docs</span>
+          <span class="logo-text">CWE Docs</span>
         </a>
       </div>
       <nav class="sidebar-nav">
@@ -33,10 +33,10 @@
         <div class="nav-section">
           <h3>Reference</h3>
           <ul>
-            <li><a href="agents.html" class="active">Agents (23)</a></li>
-            <li><a href="commands.html">Commands (13)</a></li>
-            <li><a href="skills.html">Skills (11)</a></li>
-            <li><a href="mcp-servers.html">MCP Servers (2)</a></li>
+            <li><a href="agents.html" class="active">Agents (29)</a></li>
+            <li><a href="commands.html">Commands (22)</a></li>
+            <li><a href="skills.html">Skills (17)</a></li>
+            <li><a href="mcp-servers.html">MCP Servers (1)</a></li>
           </ul>
         </div>
         <div class="nav-section">
@@ -48,11 +48,10 @@
         <div class="nav-section">
           <h3>On This Page</h3>
           <ul>
-            <li><a href="#review-agents">Review (10)</a></li>
-            <li><a href="#research-agents">Research (4)</a></li>
-            <li><a href="#workflow-agents">Workflow (5)</a></li>
+            <li><a href="#review-agents">Review (18)</a></li>
+            <li><a href="#research-agents">Research (5)</a></li>
             <li><a href="#design-agents">Design (3)</a></li>
-            <li><a href="#docs-agents">Docs (1)</a></li>
+            <li><a href="#workflow-agents">Workflow (3)</a></li>
           </ul>
         </div>
       </nav>
@@ -75,7 +74,7 @@
       <article class="docs-article">
         <h1><i class="fa-solid fa-users-gear color-accent"></i> Agent Reference</h1>
         <p class="lead">
-          Think of agents as your expert teammates who never sleep. You've got 23 specialists here—each one obsessed with a single domain. Call them individually when you need focused expertise, or orchestrate them together for multi-angle analysis. They're opinionated, they're fast, and they remember your codebase better than you do.
+          Think of agents as your expert teammates who never sleep. You've got 29 specialists here--each one obsessed with a single domain. Seven of them are WordPress-specific reviewers covering PHP standards, Gutenberg blocks, hooks, themes, JavaScript, frontend races, and AI Building Blocks. Call them individually when you need focused expertise, or orchestrate them together for multi-angle analysis.
         </p>
 
         <div class="usage-box">
@@ -88,98 +87,161 @@ claude agent [agent-name]
 claude agent [agent-name] "Your message here"
 
 # Examples
-claude agent kieran-rails-reviewer
-claude agent security-sentinel "Audit the payment flow"</code></pre>
+claude agent wp-php-reviewer
+claude agent security-sentinel "Audit the payment flow"
+claude agent wp-gutenberg-reviewer "Review the pricing table block"</code></pre>
           </div>
         </div>
 
         <!-- Review Agents -->
         <section id="review-agents">
-          <h2><i class="fa-solid fa-code-pull-request"></i> Review Agents (10)</h2>
-          <p>Your code review dream team. These agents catch what humans miss at 2am—security holes, performance cliffs, architectural drift, and those "it works but I hate it" moments. They're picky. They disagree with each other. That's the point.</p>
+          <h2><i class="fa-solid fa-code-pull-request"></i> Review Agents (18)</h2>
+          <p>Your code review dream team. Seven WordPress-specific reviewers plus eleven framework-agnostic specialists that catch what humans miss--security holes, performance cliffs, architectural drift, hook priority conflicts, and missing block deprecations. They're picky. They disagree with each other. That's the point.</p>
 
-          <div class="agent-detail" id="kieran-rails-reviewer">
+          <div class="agent-detail" id="wp-php-reviewer">
             <div class="agent-detail-header">
-              <h3>kieran-rails-reviewer</h3>
-              <span class="agent-badge">Rails</span>
+              <h3>wp-php-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
             </div>
             <p class="agent-detail-description">
-              Your senior Rails developer who's seen too many "clever" solutions fail in production. Obsessed with code that's boring, predictable, and maintainable. Strict on existing code (because touching it risks everything), pragmatic on new isolated features (because shipping matters). If you've ever thought "this works but feels wrong," this reviewer will tell you why.
-            </p>
-            <h4>Key Principles</h4>
-            <ul>
-              <li><strong>Existing Code Modifications</strong> - Very strict. Added complexity needs strong justification.</li>
-              <li><strong>New Code</strong> - Pragmatic. If it's isolated and works, it's acceptable.</li>
-              <li><strong>Turbo Streams</strong> - Simple turbo streams MUST be inline arrays in controllers.</li>
-              <li><strong>Testing as Quality</strong> - Hard-to-test code = poor structure that needs refactoring.</li>
-              <li><strong>Naming (5-Second Rule)</strong> - Must understand what a view/component does in 5 seconds from its name.</li>
-              <li><strong>Namespacing</strong> - Always use <code>class Module::ClassName</code> pattern.</li>
-              <li><strong>Duplication > Complexity</strong> - Simple duplicated code is better than complex DRY abstractions.</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent kieran-rails-reviewer "Review the UserController"</code></pre>
-            </div>
-          </div>
-
-          <div class="agent-detail" id="dhh-rails-reviewer">
-            <div class="agent-detail-header">
-              <h3>dhh-rails-reviewer</h3>
-              <span class="agent-badge">Rails</span>
-            </div>
-            <p class="agent-detail-description">
-              What if DHH reviewed your Rails PR? He'd ask why you're building React inside Rails, why you need six layers of abstraction for a form, and whether you've forgotten that Rails already solved this problem. This agent channels that energy—blunt, opinionated, allergic to complexity.
+              Your WordPress PHP expert with a high quality bar. Reviews code for WordPress coding standards, security patterns, and maintainability. Whether you're building a plugin settings page or a custom REST API endpoint, this reviewer enforces proper nonce verification, capability checks, and data sanitization.
             </p>
             <h4>Key Focus Areas</h4>
             <ul>
-              <li>Identifies deviations from Rails conventions</li>
-              <li>Spots JavaScript framework patterns infiltrating Rails</li>
-              <li>Tears apart unnecessary abstractions</li>
-              <li>Challenges overengineering and microservices mentality</li>
+              <li>WordPress PHP Coding Standards compliance</li>
+              <li>Security patterns (nonces, capabilities, sanitization, escaping)</li>
+              <li>REST API endpoint conventions</li>
+              <li>Settings API and Options API usage</li>
+              <li>Proper use of WordPress functions over raw PHP</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent dhh-rails-reviewer</code></pre>
+              <pre><code>claude agent wp-php-reviewer "Review the settings page implementation"</code></pre>
             </div>
           </div>
 
-          <div class="agent-detail" id="kieran-python-reviewer">
+          <div class="agent-detail" id="wp-javascript-reviewer">
             <div class="agent-detail-header">
-              <h3>kieran-python-reviewer</h3>
-              <span class="agent-badge">Python</span>
+              <h3>wp-javascript-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
             </div>
             <p class="agent-detail-description">
-              Your Pythonic perfectionist who believes type hints aren't optional and <code>dict.get()</code> beats try/except KeyError. Expects modern Python 3.10+ patterns—no legacy syntax, no <code>typing.List</code> when <code>list</code> works natively. If your code looks like Java translated to Python, prepare for rewrites.
+              Reviews JavaScript code for WordPress block editor, Interactivity API, and @wordpress/* package patterns. Knows the difference between wp.element and React, catches improper block.json usage, and ensures your Interactivity API stores handle state correctly.
             </p>
             <h4>Key Focus Areas</h4>
             <ul>
-              <li>Type hints for all functions</li>
-              <li>Pythonic patterns and idioms</li>
-              <li>Modern Python syntax</li>
-              <li>Import organization</li>
-              <li>Module extraction signals</li>
+              <li>Block editor JavaScript patterns</li>
+              <li>Interactivity API store and directive patterns</li>
+              <li>@wordpress/* package usage</li>
+              <li>block.json completeness and correctness</li>
+              <li>Proper script enqueuing and dependencies</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent kieran-python-reviewer</code></pre>
+              <pre><code>claude agent wp-javascript-reviewer "Review the testimonial block code"</code></pre>
             </div>
           </div>
 
-          <div class="agent-detail" id="kieran-typescript-reviewer">
+          <div class="agent-detail" id="wp-hooks-reviewer">
             <div class="agent-detail-header">
-              <h3>kieran-typescript-reviewer</h3>
-              <span class="agent-badge">TypeScript</span>
+              <h3>wp-hooks-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
             </div>
             <p class="agent-detail-description">
-              TypeScript's type system is a gift—don't throw it away with <code>any</code>. This reviewer treats <code>any</code> like a code smell that needs justification. Expects proper types, clean imports, and code that doesn't need comments because the types explain everything. You added TypeScript for safety; this agent makes sure you actually get it.
+              The WordPress hook system is powerful but fragile. This agent reviews your actions, filters, and custom hooks for correct timing, priority conflicts, and architectural patterns. It catches the bugs that happen when two plugins register at the same priority or when you hook into init when you should hook into wp_loaded.
             </p>
             <h4>Key Focus Areas</h4>
             <ul>
-              <li>No <code>any</code> without justification</li>
-              <li>Component/module extraction signals</li>
-              <li>Import organization</li>
-              <li>Modern TypeScript patterns</li>
-              <li>Testability assessment</li>
+              <li>Correct hook timing (init vs wp_loaded vs plugins_loaded)</li>
+              <li>Priority conflict detection</li>
+              <li>Hook removal matching (matching add_action/remove_action signatures)</li>
+              <li>Custom hook naming conventions</li>
+              <li>Filter return value consistency</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent kieran-typescript-reviewer</code></pre>
+              <pre><code>claude agent wp-hooks-reviewer "Review the notification system hooks"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="wp-gutenberg-reviewer">
+            <div class="agent-detail-header">
+              <h3>wp-gutenberg-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
+            </div>
+            <p class="agent-detail-description">
+              Custom Gutenberg blocks need specialized review beyond what a general JS reviewer catches. This agent checks deprecation handling (did you add a deprecation entry when changing the save function?), block.json schema completeness, server-side rendering patterns, and InnerBlocks usage.
+            </p>
+            <h4>Key Focus Areas</h4>
+            <ul>
+              <li>Deprecation handling for save function changes</li>
+              <li>block.json schema and attribute completeness</li>
+              <li>Server-side rendering (render.php) patterns</li>
+              <li>InnerBlocks and nested block patterns</li>
+              <li>Block API version compatibility</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent wp-gutenberg-reviewer "Review the pricing table block"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="wp-theme-reviewer">
+            <div class="agent-detail-header">
+              <h3>wp-theme-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
+            </div>
+            <p class="agent-detail-description">
+              Block themes and classic themes have very different requirements. This agent reviews theme.json compliance, template hierarchy correctness, Full Site Editing patterns, and proper asset enqueuing. Whether you're building a new block theme or converting a classic theme to FSE, it catches the structural issues.
+            </p>
+            <h4>Key Focus Areas</h4>
+            <ul>
+              <li>theme.json schema compliance and settings</li>
+              <li>Template hierarchy and template parts</li>
+              <li>Full Site Editing (FSE) patterns</li>
+              <li>Proper asset enqueuing (wp_enqueue_style/script)</li>
+              <li>Classic-to-block theme migration</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent wp-theme-reviewer "Review the block theme structure"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="wp-frontend-races-reviewer">
+            <div class="agent-detail-header">
+              <h3>wp-frontend-races-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
+            </div>
+            <p class="agent-detail-description">
+              Race conditions in WordPress JavaScript are subtle and dangerous. This agent reviews Interactivity API stores for concurrent async operations, block editor async save handlers, AJAX/REST request ordering, and DOM event timing. If your infinite scroll loads duplicate posts or your filter dropdown shows stale results, this reviewer will tell you why.
+            </p>
+            <h4>Key Focus Areas</h4>
+            <ul>
+              <li>Interactivity API store async race conditions</li>
+              <li>Block editor concurrent save operations</li>
+              <li>AJAX/REST API request ordering and cancellation</li>
+              <li>Stale response handling</li>
+              <li>DOM event timing and cleanup</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent wp-frontend-races-reviewer "Review the infinite scroll implementation"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="wp-ai-building-blocks-reviewer">
+            <div class="agent-detail-header">
+              <h3>wp-ai-building-blocks-reviewer</h3>
+              <span class="agent-badge">WordPress</span>
+            </div>
+            <p class="agent-detail-description">
+              Reviews code that uses WordPress AI Building Blocks--the Abilities API, AI Client SDK, and MCP Adapter. Checks correct hook timing for ability registration, schema validation, permission callbacks, provider-agnostic patterns, and output sanitization. Essential when building AI-powered WordPress features.
+            </p>
+            <h4>Key Focus Areas</h4>
+            <ul>
+              <li>Abilities API hook timing and schema validation</li>
+              <li>AI Client SDK provider-agnostic patterns</li>
+              <li>MCP Adapter configuration</li>
+              <li>Permission callback presence</li>
+              <li>Output sanitization for AI-generated content</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent wp-ai-building-blocks-reviewer "Review the AI excerpt generation"</code></pre>
             </div>
           </div>
 
@@ -189,7 +251,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge critical">Security</span>
             </div>
             <p class="agent-detail-description">
-              Security vulnerabilities hide in boring code—the "just grab the user ID from params" line that ships a privilege escalation bug to production. This agent thinks like an attacker: SQL injection, XSS, auth bypass, leaked secrets. Run it before touching authentication, payments, or anything with PII. Your users' data depends on paranoia.
+              Security vulnerabilities hide in boring code--the "just grab the user ID from params" line that ships a privilege escalation bug to production. This agent thinks like an attacker: SQL injection, XSS, auth bypass, leaked secrets. Run it before touching authentication, payments, or anything with PII.
             </p>
             <h4>Security Checks</h4>
             <ul>
@@ -212,13 +274,12 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Performance</span>
             </div>
             <p class="agent-detail-description">
-              Your code works fine with 10 users. What happens at 10,000? This agent time-travels to your future scaling problems—N+1 queries that murder your database, O(n²) algorithms hiding in loops, missing indexes, memory leaks. It thinks in Big O notation and asks uncomfortable questions about what breaks first when traffic spikes.
+              Your code works fine with 10 users. What happens at 10,000? This agent time-travels to your future scaling problems--unoptimized queries that murder your database, O(n^2) algorithms hiding in loops, missing indexes, memory leaks. It thinks in Big O notation and asks uncomfortable questions about what breaks first when traffic spikes.
             </p>
             <h4>Analysis Areas</h4>
             <ul>
               <li>Algorithmic complexity (Big O notation)</li>
-              <li>N+1 query pattern detection</li>
-              <li>Proper index usage verification</li>
+              <li>Query optimization and index usage</li>
               <li>Memory management review</li>
               <li>Caching opportunity identification</li>
               <li>Network usage optimization</li>
@@ -235,7 +296,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Architecture</span>
             </div>
             <p class="agent-detail-description">
-              Every "small change" either reinforces your architecture or starts eroding it. This agent zooms out to see if your fix actually fits the system's design—or if you're bolting duct tape onto a crumbling foundation. It speaks SOLID principles, microservice boundaries, and API contracts. Call it when you're about to make a change that "feels weird."
+              Every "small change" either reinforces your architecture or starts eroding it. This agent zooms out to see if your fix actually fits the system's design--or if you're bolting duct tape onto a crumbling foundation. It speaks SOLID principles, component boundaries, and API contracts.
             </p>
             <h4>Analysis Areas</h4>
             <ul>
@@ -243,7 +304,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <li>Change context within architecture</li>
               <li>Architectural violation identification</li>
               <li>SOLID principles compliance</li>
-              <li>Microservice boundary assessment</li>
+              <li>Component boundary assessment</li>
               <li>API contract evaluation</li>
             </ul>
             <div class="card-code-block">
@@ -257,7 +318,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge critical">Data</span>
             </div>
             <p class="agent-detail-description">
-              Migrations can't be rolled back once they're run on production. This agent is your last line of defense before you accidentally drop a column with user data, create a race condition in transactions, or violate GDPR. It obsesses over referential integrity, rollback safety, and data constraints. Your database is forever; migrations should be paranoid.
+              Database changes can't be easily rolled back once they're in production. This agent is your last line of defense before you accidentally drop data, create a race condition in transactions, or violate data privacy requirements. It obsesses over referential integrity, rollback safety, and data constraints.
             </p>
             <h4>Review Areas</h4>
             <ul>
@@ -279,16 +340,16 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Patterns</span>
             </div>
             <p class="agent-detail-description">
-              Patterns tell stories—Factory, Observer, God Object, Copy-Paste Programming. This agent reads your code like an archaeologist reading artifacts. It spots the good patterns (intentional design), the anti-patterns (accumulated tech debt), and the duplicated blocks you swore you'd refactor later. Runs tools like jscpd because humans miss repetition that machines catch instantly.
+              Patterns tell stories--Factory, Observer, God Object, Copy-Paste Programming. This agent reads your code like an archaeologist reading artifacts. It spots good patterns (intentional design), anti-patterns (accumulated tech debt), dead code, and duplicated blocks you swore you'd refactor later. Includes dead code detection for identifying unused functions and unreachable paths.
             </p>
             <h4>Detection Areas</h4>
             <ul>
               <li>Design patterns (Factory, Singleton, Observer, etc.)</li>
               <li>Anti-patterns and code smells</li>
+              <li>Dead code detection and unreachable paths</li>
               <li>TODO/FIXME comments</li>
               <li>God objects and circular dependencies</li>
-              <li>Naming consistency</li>
-              <li>Code duplication</li>
+              <li>Naming consistency and code duplication</li>
             </ul>
             <div class="card-code-block">
               <pre><code>claude agent pattern-recognition-specialist</code></pre>
@@ -301,7 +362,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Quality</span>
             </div>
             <p class="agent-detail-description">
-              Simplicity is violent discipline. This agent asks "do you actually need this?" about every line, every abstraction, every dependency. YAGNI isn't a suggestion—it's the law. Your 200-line feature with three layers of indirection? This agent will show you the 50-line version that does the same thing. Complexity is a liability; simplicity compounds.
+              Simplicity is violent discipline. This agent asks "do you actually need this?" about every line, every abstraction, every dependency. YAGNI isn't a suggestion--it's the law. Your 200-line feature with three layers of indirection? This agent will show you the 50-line version that does the same thing.
             </p>
             <h4>Simplification Checks</h4>
             <ul>
@@ -316,12 +377,115 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <pre><code>claude agent code-simplicity-reviewer</code></pre>
             </div>
           </div>
+
+          <div class="agent-detail" id="agent-native-reviewer">
+            <div class="agent-detail-header">
+              <h3>agent-native-reviewer</h3>
+              <span class="agent-badge">Agent</span>
+            </div>
+            <p class="agent-detail-description">
+              Reviews code to ensure agent-native parity--any action a user can take through the UI, an agent should also be able to take through APIs or tools. When you add a new feature, this agent checks whether it's accessible to automated agents, not just human users clicking buttons.
+            </p>
+            <h4>Key Focus Areas</h4>
+            <ul>
+              <li>UI feature accessibility via API/tools</li>
+              <li>Agent-equivalent workflows for user actions</li>
+              <li>System prompt and tool design review</li>
+              <li>Automation gap identification</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent agent-native-reviewer "Review the email filtering feature"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="call-chain-verifier">
+            <div class="agent-detail-header">
+              <h3>call-chain-verifier</h3>
+              <span class="agent-badge">Traceability</span>
+            </div>
+            <p class="agent-detail-description">
+              Traces UI-initiated actions through all WordPress layers and verifies signatures at each boundary. From an AJAX form through the wp_ajax_ handler, through service logic, to the database write--this agent maps every step and checks for broken connections, missing permission checks, and unvalidated data at layer boundaries.
+            </p>
+            <h4>Verification Areas</h4>
+            <ul>
+              <li>AJAX form to handler chain tracing</li>
+              <li>REST API route to database chain</li>
+              <li>Block editor save to storage chain</li>
+              <li>Permission callback verification at each boundary</li>
+              <li>Data validation between layers</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent call-chain-verifier "Trace the AJAX form save chain"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="schema-drift-detector">
+            <div class="agent-detail-header">
+              <h3>schema-drift-detector</h3>
+              <span class="agent-badge">Database</span>
+            </div>
+            <p class="agent-detail-description">
+              Detects unrelated database schema changes in WordPress PRs by cross-referencing dbDelta calls, table creation, and version tracking. Schema drift in WordPress happens when activation hooks run locally with different plugin versions. This agent catches schema changes that don't belong in the current PR.
+            </p>
+            <h4>Detection Areas</h4>
+            <ul>
+              <li>dbDelta call cross-referencing</li>
+              <li>Unrelated table creation or modification</li>
+              <li>Version tracking consistency</li>
+              <li>Activation hook schema changes</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent schema-drift-detector "Review the database changes in this PR"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="data-migration-expert">
+            <div class="agent-detail-header">
+              <h3>data-migration-expert</h3>
+              <span class="agent-badge">Data</span>
+            </div>
+            <p class="agent-detail-description">
+              Validates data migrations, backfills, and production data transformations against reality. When PRs involve ID mappings, column renames, enum conversions, or schema changes, this agent verifies the mappings match production data and checks for swapped values and rollback safety.
+            </p>
+            <h4>Validation Areas</h4>
+            <ul>
+              <li>ID mapping verification</li>
+              <li>Enum conversion accuracy</li>
+              <li>Backfill completeness</li>
+              <li>Rollback procedure safety</li>
+              <li>Production data compatibility</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent data-migration-expert "Review the status enum migration"</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="deployment-verification-agent">
+            <div class="agent-detail-header">
+              <h3>deployment-verification-agent</h3>
+              <span class="agent-badge">Deploy</span>
+            </div>
+            <p class="agent-detail-description">
+              Produces Go/No-Go deployment checklists with SQL verification queries, rollback procedures, and monitoring plans. When PRs touch production data, migrations, or risky data changes, this agent creates concrete pre-deploy and post-deploy verification steps.
+            </p>
+            <h4>Checklist Areas</h4>
+            <ul>
+              <li>Pre-deployment verification queries</li>
+              <li>Post-deployment validation steps</li>
+              <li>Rollback procedures</li>
+              <li>Monitoring plan setup</li>
+              <li>Go/No-Go decision criteria</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent deployment-verification-agent "Create deployment checklist"</code></pre>
+            </div>
+          </div>
         </section>
 
         <!-- Research Agents -->
         <section id="research-agents">
-          <h2><i class="fa-solid fa-microscope"></i> Research Agents (4)</h2>
-          <p>Stop guessing. These agents dig through documentation, GitHub repos, git history, and real-world examples to give you answers backed by evidence. They read faster than you, remember more than you, and synthesize patterns you'd miss. Perfect for "how should I actually do this?" questions.</p>
+          <h2><i class="fa-solid fa-microscope"></i> Research Agents (5)</h2>
+          <p>Stop guessing. These agents dig through documentation, GitHub repos, git history, and real-world examples to give you answers backed by evidence. They read faster than you, remember more than you, and synthesize patterns you'd miss.</p>
 
           <div class="agent-detail" id="framework-docs-researcher">
             <div class="agent-detail-header">
@@ -329,18 +493,18 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Research</span>
             </div>
             <p class="agent-detail-description">
-              Official docs are scattered. GitHub examples are inconsistent. Deprecations hide in changelogs. This agent pulls it all together—docs, source code, version constraints, real-world examples. Ask "how do I use Hotwire Turbo?" and get back patterns that actually work in production, not toy tutorials.
+              Official docs are scattered. GitHub examples are inconsistent. Deprecations hide in changelogs. This agent pulls it all together--docs, source code, version constraints, real-world examples. Ask "how do I use the Interactivity API?" and get back patterns that actually work in production.
             </p>
             <h4>Capabilities</h4>
             <ul>
               <li>Fetch official framework and library documentation</li>
               <li>Identify version-specific constraints and deprecations</li>
               <li>Search GitHub for real-world usage examples</li>
-              <li>Analyze gem/library source code using <code>bundle show</code></li>
+              <li>Analyze library source code</li>
               <li>Synthesize findings with practical examples</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent framework-docs-researcher "Research Hotwire Turbo patterns"</code></pre>
+              <pre><code>claude agent framework-docs-researcher "Research Interactivity API patterns"</code></pre>
             </div>
           </div>
 
@@ -350,7 +514,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Research</span>
             </div>
             <p class="agent-detail-description">
-              "Best practices" are everywhere and contradictory. This agent cuts through the noise by evaluating sources (official docs, trusted blogs, real GitHub repos), checking recency, and synthesizing actionable guidance. You get code templates, patterns that scale, and answers you can trust—not StackOverflow copy-paste roulette.
+              "Best practices" are everywhere and contradictory. This agent cuts through the noise by evaluating sources (official docs, trusted blogs, real GitHub repos), checking recency, and synthesizing actionable guidance. You get code templates, patterns that scale, and answers you can trust.
             </p>
             <h4>Capabilities</h4>
             <ul>
@@ -361,7 +525,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <li>Research issue templates and community engagement</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent best-practices-researcher "Find pagination patterns"</code></pre>
+              <pre><code>claude agent best-practices-researcher "Find WordPress block patterns"</code></pre>
             </div>
           </div>
 
@@ -371,7 +535,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Git</span>
             </div>
             <p class="agent-detail-description">
-              Your codebase has a history—decisions, patterns, mistakes. This agent does archaeology with git tools: file evolution, blame analysis, contributor expertise mapping. Ask "why does this code exist?" and get the commit that explains it. Spot patterns in how bugs appear. Understand the design decisions buried in history.
+              Your codebase has a history--decisions, patterns, mistakes. This agent does archaeology with git tools: file evolution, blame analysis, contributor expertise mapping. Ask "why does this code exist?" and get the commit that explains it.
             </p>
             <h4>Analysis Techniques</h4>
             <ul>
@@ -382,7 +546,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <li>Extract historical patterns of issues and fixes</li>
             </ul>
             <div class="card-code-block">
-              <pre><code>claude agent git-history-analyzer "Analyze changes to User model"</code></pre>
+              <pre><code>claude agent git-history-analyzer "Analyze changes to the settings module"</code></pre>
             </div>
           </div>
 
@@ -392,7 +556,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Research</span>
             </div>
             <p class="agent-detail-description">
-              Every repo has conventions—some documented, most tribal knowledge. This agent reads ARCHITECTURE.md, issue templates, PR patterns, and actual code to reverse-engineer the standards. Perfect for joining a new project or ensuring your PR matches the team's implicit style. Finds the rules nobody wrote down.
+              Every repo has conventions--some documented, most tribal knowledge. This agent reads ARCHITECTURE.md, issue templates, PR patterns, and actual code to reverse-engineer the standards. Perfect for joining a new project or ensuring your PR matches the team's implicit style.
             </p>
             <h4>Analysis Areas</h4>
             <ul>
@@ -406,12 +570,101 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <pre><code>claude agent repo-research-analyst</code></pre>
             </div>
           </div>
+
+          <div class="agent-detail" id="learnings-researcher">
+            <div class="agent-detail-header">
+              <h3>learnings-researcher</h3>
+              <span class="agent-badge">Knowledge</span>
+            </div>
+            <p class="agent-detail-description">
+              Searches docs/solutions/ for relevant past solutions by frontmatter metadata. Before implementing features or fixing problems, this agent surfaces institutional knowledge to prevent repeated mistakes. It finds solutions you've already documented so you don't re-solve the same problem.
+            </p>
+            <h4>Capabilities</h4>
+            <ul>
+              <li>Search docs/solutions/ by module, symptom, and tags</li>
+              <li>Surface relevant past solutions before coding</li>
+              <li>Cross-reference related documented issues</li>
+              <li>Identify recurring problem patterns</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent learnings-researcher "Search for REST API authentication issues"</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Design Agents -->
+        <section id="design-agents">
+          <h2><i class="fa-solid fa-palette"></i> Design Agents (3)</h2>
+          <p>Design is iteration. These agents take screenshots, compare them to Figma, make targeted improvements, and repeat. They fix spacing, alignment, colors, typography--the visual details that compound into polish.</p>
+
+          <div class="agent-detail" id="design-iterator">
+            <div class="agent-detail-header">
+              <h3>design-iterator</h3>
+              <span class="agent-badge">Design</span>
+            </div>
+            <p class="agent-detail-description">
+              Design doesn't happen in one pass. This agent runs a loop: screenshot the UI, analyze what's off (spacing, colors, alignment), implement 3-5 targeted fixes, repeat. Run it for 10 iterations and watch rough interfaces transform into polished designs.
+            </p>
+            <h4>Process</h4>
+            <ul>
+              <li>Take focused screenshots of target elements</li>
+              <li>Analyze current state and identify 3-5 improvements</li>
+              <li>Implement targeted CSS/design changes</li>
+              <li>Document changes made</li>
+              <li>Repeat for specified iterations (default 10)</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent design-iterator</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="figma-design-sync">
+            <div class="agent-detail-header">
+              <h3>figma-design-sync</h3>
+              <span class="agent-badge">Figma</span>
+            </div>
+            <p class="agent-detail-description">
+              Designers hand you a Figma file. You build it. Then: "the spacing is wrong, the font is off, the colors don't match." This agent compares your implementation to the Figma spec, identifies every visual discrepancy, and fixes them automatically.
+            </p>
+            <h4>Workflow</h4>
+            <ul>
+              <li>Extract design specifications from Figma</li>
+              <li>Capture implementation screenshots</li>
+              <li>Conduct systematic visual comparison</li>
+              <li>Make precise code changes to fix discrepancies</li>
+              <li>Verify implementation matches design</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent figma-design-sync</code></pre>
+            </div>
+          </div>
+
+          <div class="agent-detail" id="design-implementation-reviewer">
+            <div class="agent-detail-header">
+              <h3>design-implementation-reviewer</h3>
+              <span class="agent-badge">Review</span>
+            </div>
+            <p class="agent-detail-description">
+              Before you ship UI changes, run this agent. It compares your implementation against Figma at a pixel level--layouts, typography, colors, spacing, responsive behavior. Catches the "close enough" mistakes that users notice but you don't.
+            </p>
+            <h4>Comparison Areas</h4>
+            <ul>
+              <li>Layouts and structure</li>
+              <li>Typography (fonts, sizes, weights)</li>
+              <li>Colors and themes</li>
+              <li>Spacing and alignment</li>
+              <li>Different viewport sizes</li>
+            </ul>
+            <div class="card-code-block">
+              <pre><code>claude agent design-implementation-reviewer</code></pre>
+            </div>
+          </div>
         </section>
 
         <!-- Workflow Agents -->
         <section id="workflow-agents">
-          <h2><i class="fa-solid fa-gears"></i> Workflow Agents (5)</h2>
-          <p>Tedious work you hate doing. These agents handle the grind—reproducing bugs, resolving PR comments, running linters, analyzing specs. They're fast, they don't complain, and they free you up to solve interesting problems instead of mechanical ones.</p>
+          <h2><i class="fa-solid fa-gears"></i> Workflow Agents (3)</h2>
+          <p>Tedious work you hate doing. These agents handle the grind--reproducing bugs, resolving PR comments, analyzing specs. They're fast, they don't complain, and they free you up to solve interesting problems.</p>
 
           <div class="agent-detail" id="bug-reproduction-validator">
             <div class="agent-detail-header">
@@ -419,7 +672,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">Bugs</span>
             </div>
             <p class="agent-detail-description">
-              Half of bug reports aren't bugs—they're user errors, environment issues, or misunderstood features. This agent systematically reproduces the reported behavior, classifies what it finds (Confirmed, Can't Reproduce, Not a Bug, etc.), and assesses severity. Saves you from chasing ghosts or missing real issues.
+              Half of bug reports aren't bugs--they're user errors, environment issues, or misunderstood features. This agent systematically reproduces the reported behavior, classifies what it finds, and assesses severity. Saves you from chasing ghosts.
             </p>
             <h4>Classification Types</h4>
             <ul>
@@ -441,7 +694,7 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
               <span class="agent-badge">PR</span>
             </div>
             <p class="agent-detail-description">
-              Code review comments pile up. This agent reads them, plans fixes, implements changes, and reports back what it did. It doesn't argue with reviewers or skip hard feedback—it just resolves the work systematically. Great for burning through a dozen "change this variable name" comments in seconds.
+              Code review comments pile up. This agent reads them, plans fixes, implements changes, and reports back what it did. It doesn't argue with reviewers or skip hard feedback--it just resolves the work systematically.
             </p>
             <h4>Workflow</h4>
             <ul>
@@ -456,32 +709,13 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
             </div>
           </div>
 
-          <div class="agent-detail" id="lint">
-            <div class="agent-detail-header">
-              <h3>lint</h3>
-              <span class="agent-badge">Quality</span>
-            </div>
-            <p class="agent-detail-description">
-              Linters are pedantic robots that enforce consistency. This agent runs StandardRB, ERBLint, and Brakeman for you—checking Ruby style, ERB templates, and security issues. It's fast (uses the Haiku model) and catches the formatting noise before CI does.
-            </p>
-            <h4>Tools Run</h4>
-            <ul>
-              <li><code>bundle exec standardrb</code> - Ruby file checking/fixing</li>
-              <li><code>bundle exec erblint --lint-all</code> - ERB templates</li>
-              <li><code>bin/brakeman</code> - Security scanning</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent lint</code></pre>
-            </div>
-          </div>
-
           <div class="agent-detail" id="spec-flow-analyzer">
             <div class="agent-detail-header">
               <h3>spec-flow-analyzer</h3>
               <span class="agent-badge">Testing</span>
             </div>
             <p class="agent-detail-description">
-              Specs always have gaps—edge cases nobody thought about, ambiguous requirements, missing error states. This agent maps all possible user flows, identifies what's unclear or missing, and generates the questions you need to ask stakeholders. Runs before you code to avoid building the wrong thing.
+              Specs always have gaps--edge cases nobody thought about, ambiguous requirements, missing error states. This agent maps all possible user flows, identifies what's unclear or missing, and generates the questions you need to ask stakeholders.
             </p>
             <h4>Analysis Areas</h4>
             <ul>
@@ -493,133 +727,6 @@ claude agent security-sentinel "Audit the payment flow"</code></pre>
             </ul>
             <div class="card-code-block">
               <pre><code>claude agent spec-flow-analyzer</code></pre>
-            </div>
-          </div>
-
-          <div class="agent-detail" id="every-style-editor">
-            <div class="agent-detail-header">
-              <h3>every-style-editor</h3>
-              <span class="agent-badge">Content</span>
-            </div>
-            <p class="agent-detail-description">
-              Style guides are arbitrary rules that make writing consistent. This agent enforces Every's particular quirks—title case in headlines, no overused filler words ("actually," "very"), active voice, Oxford commas. It's a line-by-line grammar cop for content that needs to match the brand.
-            </p>
-            <h4>Style Checks</h4>
-            <ul>
-              <li>Title case in headlines, sentence case elsewhere</li>
-              <li>Company singular/plural usage</li>
-              <li>Remove overused words (actually, very, just)</li>
-              <li>Enforce active voice</li>
-              <li>Apply formatting rules (Oxford commas, em dashes)</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent every-style-editor</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Design Agents -->
-        <section id="design-agents">
-          <h2><i class="fa-solid fa-palette"></i> Design Agents (3)</h2>
-          <p>Design is iteration. These agents take screenshots, compare them to Figma, make targeted improvements, and repeat. They fix spacing, alignment, colors, typography—the visual details that compound into polish. Perfect for closing the gap between "it works" and "it looks right."</p>
-
-          <div class="agent-detail" id="design-iterator">
-            <div class="agent-detail-header">
-              <h3>design-iterator</h3>
-              <span class="agent-badge">Design</span>
-            </div>
-            <p class="agent-detail-description">
-              Design doesn't happen in one pass. This agent runs a loop: screenshot the UI, analyze what's off (spacing, colors, alignment), implement 3-5 targeted fixes, repeat. Run it for 10 iterations and watch rough interfaces transform into polished designs through systematic refinement.
-            </p>
-            <h4>Process</h4>
-            <ul>
-              <li>Take focused screenshots of target elements</li>
-              <li>Analyze current state and identify 3-5 improvements</li>
-              <li>Implement targeted CSS/design changes</li>
-              <li>Document changes made</li>
-              <li>Repeat for specified iterations (default 10)</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent design-iterator</code></pre>
-            </div>
-          </div>
-
-          <div class="agent-detail" id="figma-design-sync">
-            <div class="agent-detail-header">
-              <h3>figma-design-sync</h3>
-              <span class="agent-badge">Figma</span>
-            </div>
-            <p class="agent-detail-description">
-              Designers hand you a Figma file. You build it. Then: "the spacing is wrong, the font is off, the colors don't match." This agent compares your implementation to the Figma spec, identifies every visual discrepancy, and fixes them automatically. Designers stay happy. You stay sane.
-            </p>
-            <h4>Workflow</h4>
-            <ul>
-              <li>Extract design specifications from Figma</li>
-              <li>Capture implementation screenshots</li>
-              <li>Conduct systematic visual comparison</li>
-              <li>Make precise code changes to fix discrepancies</li>
-              <li>Verify implementation matches design</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent figma-design-sync</code></pre>
-            </div>
-          </div>
-
-          <div class="agent-detail" id="design-implementation-reviewer">
-            <div class="agent-detail-header">
-              <h3>design-implementation-reviewer</h3>
-              <span class="agent-badge">Review</span>
-            </div>
-            <p class="agent-detail-description">
-              Before you ship UI changes, run this agent. It compares your implementation against Figma at a pixel level—layouts, typography, colors, spacing, responsive behavior. Uses the Opus model for detailed visual analysis. Catches the "close enough" mistakes that users notice but you don't.
-            </p>
-            <h4>Comparison Areas</h4>
-            <ul>
-              <li>Layouts and structure</li>
-              <li>Typography (fonts, sizes, weights)</li>
-              <li>Colors and themes</li>
-              <li>Spacing and alignment</li>
-              <li>Different viewport sizes</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent design-implementation-reviewer</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- Docs Agents -->
-        <section id="docs-agents">
-          <h2><i class="fa-solid fa-file-lines"></i> Documentation Agent (1)</h2>
-
-          <div class="agent-detail" id="ankane-readme-writer">
-            <div class="agent-detail-header">
-              <h3>ankane-readme-writer</h3>
-              <span class="agent-badge">Docs</span>
-            </div>
-            <p class="agent-detail-description">
-              Andrew Kane writes READMEs that are models of clarity—concise, scannable, zero fluff. This agent generates gem documentation in that style: 15 words max per sentence, imperative voice, single-purpose code examples. If your README rambles, this agent will fix it.
-            </p>
-            <h4>Section Order</h4>
-            <ol>
-              <li>Header (title + description)</li>
-              <li>Installation</li>
-              <li>Quick Start</li>
-              <li>Usage</li>
-              <li>Options</li>
-              <li>Upgrading</li>
-              <li>Contributing</li>
-              <li>License</li>
-            </ol>
-            <h4>Style Guidelines</h4>
-            <ul>
-              <li>Imperative voice throughout</li>
-              <li>15 words max per sentence</li>
-              <li>Single-purpose code fences</li>
-              <li>Up to 4 badges maximum</li>
-              <li>No HTML comments</li>
-            </ul>
-            <div class="card-code-block">
-              <pre><code>claude agent ankane-readme-writer</code></pre>
             </div>
           </div>
         </section>

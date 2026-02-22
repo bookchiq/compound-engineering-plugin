@@ -369,6 +369,8 @@ Task({
 - `wp-javascript-reviewer` - WordPress JavaScript and block editor
 - `wp-php-reviewer` - WordPress PHP coding standards
 - `wp-theme-reviewer` - Theme architecture and FSE patterns
+- `call-chain-verifier` - End-to-end call chain traceability
+- `wp-ai-building-blocks-reviewer` - Abilities API, AI Client SDK, MCP Adapter patterns
 
 ### Research Agents
 ```javascript

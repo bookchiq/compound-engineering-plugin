@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Getting Started - Compounding Engineering</title>
-  <meta content="Complete guide to installing and using the Compounding Engineering plugin for Claude Code." name="description" />
+  <title>Getting Started - Compounding WordPress Engineering</title>
+  <meta content="Complete guide to installing and using the Compounding WordPress Engineering plugin for Claude Code." name="description" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
 
   <!-- Styles -->
@@ -22,7 +22,7 @@
       <div class="sidebar-header">
         <a href="../index.html" class="nav-brand">
           <span class="logo-icon"><i class="fa-solid fa-layer-group"></i></span>
-          <span class="logo-text">CE Docs</span>
+          <span class="logo-text">CWE Docs</span>
         </a>
       </div>
       <nav class="sidebar-nav">
@@ -54,10 +54,10 @@
         <div class="nav-section">
           <h3>Reference</h3>
           <ul>
-            <li><a href="agents.html">Agent Reference</a></li>
-            <li><a href="commands.html">Command Reference</a></li>
-            <li><a href="skills.html">Skill Reference</a></li>
-            <li><a href="mcp-servers.html">MCP Servers</a></li>
+            <li><a href="agents.html">Agents (29)</a></li>
+            <li><a href="commands.html">Commands (22)</a></li>
+            <li><a href="skills.html">Skills (17)</a></li>
+            <li><a href="mcp-servers.html">MCP Servers (1)</a></li>
             <li><a href="changelog.html">Changelog</a></li>
           </ul>
         </div>
@@ -78,9 +78,9 @@
       </div>
 
       <article class="docs-article">
-        <h1>Getting Started with Compounding Engineering</h1>
+        <h1>Getting Started with Compounding WordPress Engineering</h1>
         <p class="lead">
-          Five minutes from now, you'll run a single command that spins up 10 AI agents—each with a different specialty—to review your pull request in parallel. Security, performance, architecture, accessibility, all happening at once. That's the plugin. Let's get you set up.
+          Five minutes from now, you'll run a single command that spins up specialized AI agents--each with a different specialty--to review your WordPress pull request in parallel. Security, performance, WordPress hooks, Gutenberg blocks, PHP standards, all happening at once. That's the plugin. Let's get you set up.
         </p>
 
         <!-- Installation Section -->
@@ -91,19 +91,18 @@
           <ul>
             <li><a href="https://claude.ai/claude-code" target="_blank">Claude Code</a> installed and configured</li>
             <li>A GitHub account (for marketplace access)</li>
-            <li>Node.js 18+ (for MCP servers)</li>
           </ul>
 
           <h3>Step 1: Add the Marketplace</h3>
           <p>Think of the marketplace as an app store. You're adding it to Claude Code's list of places to look for plugins:</p>
           <div class="card-code-block">
-            <pre><code>claude /plugin marketplace add https://github.com/EveryInc/compound-engineering-plugin</code></pre>
+            <pre><code>claude /plugin marketplace add https://github.com/bookchiq/compound-wordpress-engineering</code></pre>
           </div>
 
           <h3>Step 2: Install the Plugin</h3>
           <p>Now grab the plugin itself:</p>
           <div class="card-code-block">
-            <pre><code>claude /plugin install compound-engineering</code></pre>
+            <pre><code>claude /plugin install compound-wordpress-engineering</code></pre>
           </div>
 
           <h3>Step 3: Verify Installation</h3>
@@ -111,14 +110,14 @@
           <div class="card-code-block">
             <pre><code>claude /plugin list</code></pre>
           </div>
-          <p>You'll see <code>compound-engineering</code> in the list. If you do, you're ready.</p>
+          <p>You'll see <code>compound-wordpress-engineering</code> in the list. If you do, you're ready.</p>
 
           <div class="callout callout-info">
             <div class="callout-icon"><i class="fa-solid fa-circle-info"></i></div>
             <div class="callout-content">
               <h4>Known Issue: MCP Servers</h4>
               <p>
-                The bundled MCP servers (Playwright for browser automation, Context7 for docs) don't always auto-load. If you need them, there's a manual config step below. Otherwise, ignore this—everything else works fine.
+                The bundled MCP server (Context7 for docs lookup) doesn't always auto-load. If you need it, there's a manual config step below. Otherwise, ignore this--everything else works fine.
               </p>
             </div>
           </div>
@@ -131,7 +130,7 @@
           <p>Let's see what this thing can actually do. I'll show you three workflows you'll use constantly:</p>
 
           <h3>Run a Code Review</h3>
-          <p>This is the big one. Type <code>/review</code> and watch it spawn 10+ specialized reviewers:</p>
+          <p>This is the big one. Type <code>/review</code> and watch it spawn specialized reviewers:</p>
           <div class="card-code-block">
             <pre><code># Review a PR by number
 /review 123
@@ -146,24 +145,30 @@
           <h3>Use a Specialized Agent</h3>
           <p>Sometimes you just need one expert. Call them directly:</p>
           <div class="card-code-block">
-            <pre><code># Rails code review with Kieran's conventions
-claude agent kieran-rails-reviewer "Review the UserController"
+            <pre><code># WordPress PHP code review
+claude agent wp-php-reviewer "Review the settings page"
 
 # Security audit
 claude agent security-sentinel "Audit authentication flow"
 
-# Research best practices
-claude agent best-practices-researcher "Find pagination patterns for Rails"</code></pre>
+# WordPress hooks review
+claude agent wp-hooks-reviewer "Check the notification system hooks"
+
+# Gutenberg block review
+claude agent wp-gutenberg-reviewer "Review the pricing table block"</code></pre>
           </div>
 
           <h3>Invoke a Skill</h3>
           <p>Skills are like loading a reference book into Claude's brain. When you need deep knowledge in a specific domain:</p>
           <div class="card-code-block">
-            <pre><code># Generate images with Gemini
-skill: gemini-imagegen
+            <pre><code># WordPress development patterns
+skill: wp-development-patterns
 
-# Write Ruby in DHH's style
-skill: dhh-ruby-style
+# WordPress AI Building Blocks
+skill: wp-ai-building-blocks
+
+# Generate images with Gemini
+skill: gemini-imagegen
 
 # Create a new Claude Code skill
 skill: create-agent-skills</code></pre>
@@ -176,17 +181,11 @@ skill: create-agent-skills</code></pre>
 
           <h3 id="mcp-configuration">MCP Server Configuration</h3>
           <p>
-            If the MCP servers didn't load automatically, paste this into <code>.claude/settings.json</code>:
+            If the MCP server didn't load automatically, paste this into <code>.claude/settings.json</code>:
           </p>
           <div class="card-code-block">
             <pre><code>{
   "mcpServers": {
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"],
-      "env": {}
-    },
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
@@ -223,35 +222,35 @@ skill: create-agent-skills</code></pre>
             Every unit of engineering work should make subsequent units of work easier&mdash;not harder.
           </blockquote>
 
-          <p>Here's how it works in practice—the four-step loop you'll run over and over:</p>
+          <p>Here's how it works in practice--the four-step loop you'll run over and over:</p>
 
           <div class="philosophy-grid">
             <div class="philosophy-card">
               <div class="philosophy-icon"><i class="fa-solid fa-brain"></i></div>
               <h4>1. Plan</h4>
               <p>
-                Before you write a single line, figure out what you're building and why. Use research agents to gather examples, patterns, and context. Think of it as Google Search meets expert consultation.
+                Before you write a single line, figure out what you're building and why. Use research agents to gather examples, patterns, and context. Think of it as expert consultation for your WordPress project.
               </p>
             </div>
             <div class="philosophy-card">
               <div class="philosophy-icon"><i class="fa-solid fa-robot"></i></div>
               <h4>2. Delegate</h4>
               <p>
-                Now build it—with help. Each agent specializes in something (Rails, security, design). You stay in the driver's seat, but you've got a team of specialists riding shotgun.
+                Now build it--with help. Each agent specializes in something (WordPress PHP, security, Gutenberg blocks). You stay in the driver's seat, but you've got a team of specialists riding shotgun.
               </p>
             </div>
             <div class="philosophy-card">
               <div class="philosophy-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
               <h4>3. Assess</h4>
               <p>
-                Before you ship, run the gauntlet. Security agent checks for vulnerabilities. Performance agent flags N+1 queries. Architecture agent questions your design choices. All at once, all in parallel.
+                Before you ship, run the gauntlet. Security agent checks for vulnerabilities. Performance agent flags slow queries. WordPress hooks reviewer catches priority conflicts. All at once, all in parallel.
               </p>
             </div>
             <div class="philosophy-card">
               <div class="philosophy-icon"><i class="fa-solid fa-book"></i></div>
               <h4>4. Codify</h4>
               <p>
-                You just solved a problem. Write it down. Next time you (or your teammate) face this, you'll have a runbook. That's the "compounding" part—each solution makes the next one faster.
+                You just solved a problem. Write it down. Next time you (or your teammate) face this, you'll have a runbook. That's the "compounding" part--each solution makes the next one faster.
               </p>
             </div>
           </div>
@@ -262,7 +261,7 @@ skill: create-agent-skills</code></pre>
           <h2><i class="fa-solid fa-users-gear"></i> Using Agents</h2>
 
           <p>
-            Think of agents as coworkers with different job titles. You wouldn't ask your security engineer to design your UI, right? Same concept here—each agent has a specialty, and you call the one you need.
+            Think of agents as coworkers with different job titles. You wouldn't ask your security engineer to review your Gutenberg blocks, right? Same concept here--each agent has a specialty, and you call the one you need.
           </p>
 
           <h3>Invoking Agents</h3>
@@ -271,9 +270,9 @@ skill: create-agent-skills</code></pre>
 claude agent [agent-name] "[optional message]"
 
 # Examples
-claude agent kieran-rails-reviewer
+claude agent wp-php-reviewer
 claude agent security-sentinel "Audit the payment flow"
-claude agent git-history-analyzer "Show changes to user model"</code></pre>
+claude agent wp-gutenberg-reviewer "Review the testimonial block"</code></pre>
           </div>
 
           <h3>Agent Categories</h3>
@@ -288,35 +287,30 @@ claude agent git-history-analyzer "Show changes to user model"</code></pre>
             <tbody>
               <tr>
                 <td>Review</td>
-                <td>10</td>
-                <td>Code review, security audits, performance analysis</td>
+                <td>18</td>
+                <td>Code review, security audits, performance analysis, WordPress-specific checks</td>
               </tr>
               <tr>
                 <td>Research</td>
-                <td>four</td>
-                <td>Best practices, documentation, git history</td>
+                <td>5</td>
+                <td>Best practices, documentation, git history, institutional knowledge</td>
               </tr>
               <tr>
                 <td>Design</td>
-                <td>three</td>
+                <td>3</td>
                 <td>UI iteration, Figma sync, design review</td>
               </tr>
               <tr>
                 <td>Workflow</td>
-                <td>five</td>
-                <td>Bug reproduction, PR resolution, linting</td>
-              </tr>
-              <tr>
-                <td>Docs</td>
-                <td>one</td>
-                <td>README generation</td>
+                <td>3</td>
+                <td>Bug reproduction, PR resolution, spec analysis</td>
               </tr>
             </tbody>
           </table>
 
           <p>
             <a href="agents.html" class="button secondary">
-              <i class="fa-solid fa-arrow-right"></i> View All Agents
+              <i class="fa-solid fa-arrow-right"></i> View All 29 Agents
             </a>
           </p>
         </section>
@@ -332,6 +326,7 @@ claude agent git-history-analyzer "Show changes to user model"</code></pre>
           <h3>Running Commands</h3>
           <div class="card-code-block">
             <pre><code># Workflow commands
+/brainstorm
 /plan
 /review 123
 /work
@@ -348,7 +343,7 @@ claude agent git-history-analyzer "Show changes to user model"</code></pre>
           <ol>
             <li><strong>Detection</strong> - Figures out what you want reviewed (PR number, branch name, or current changes)</li>
             <li><strong>Isolation</strong> - Spins up a git worktree so the review doesn't mess with your working directory</li>
-            <li><strong>Parallel execution</strong> - Launches 10+ agents simultaneously (security, performance, architecture, accessibility...)</li>
+            <li><strong>Parallel execution</strong> - Launches specialized agents simultaneously (security, performance, WordPress PHP, hooks, architecture...)</li>
             <li><strong>Synthesis</strong> - Sorts findings by severity (P1 = blocks merge, P2 = should fix, P3 = nice-to-have)</li>
             <li><strong>Persistence</strong> - Creates todo files so you don't lose track of issues</li>
             <li><strong>Summary</strong> - Hands you a readable report with action items</li>
@@ -356,7 +351,7 @@ claude agent git-history-analyzer "Show changes to user model"</code></pre>
 
           <p>
             <a href="commands.html" class="button secondary">
-              <i class="fa-solid fa-arrow-right"></i> View All Commands
+              <i class="fa-solid fa-arrow-right"></i> View All 22 Commands
             </a>
           </p>
         </section>
@@ -366,16 +361,16 @@ claude agent git-history-analyzer "Show changes to user model"</code></pre>
           <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Using Skills</h2>
 
           <p>
-            Here's the difference: agents are <em>who</em> does the work, skills are <em>what they know</em>. When you invoke a skill, you're loading a reference library into Claude's context—patterns, templates, examples, workflows. It's like handing Claude a technical manual.
+            Here's the difference: agents are <em>who</em> does the work, skills are <em>what they know</em>. When you invoke a skill, you're loading a reference library into Claude's context--patterns, templates, examples, workflows. It's like handing Claude a technical manual.
           </p>
 
           <h3>Invoking Skills</h3>
           <div class="card-code-block">
             <pre><code># In your prompt, reference the skill
-skill: gemini-imagegen
+skill: wp-development-patterns
 
 # Or ask Claude to use it
-"Use the dhh-ruby-style skill to refactor this code"</code></pre>
+"Use the wp-ai-building-blocks skill to implement abilities"</code></pre>
           </div>
 
           <h3>Skill Structure</h3>
@@ -390,7 +385,7 @@ skill: gemini-imagegen
 
           <p>
             <a href="skills.html" class="button secondary">
-              <i class="fa-solid fa-arrow-right"></i> View All Skills
+              <i class="fa-solid fa-arrow-right"></i> View All 17 Skills
             </a>
           </p>
         </section>
@@ -400,7 +395,7 @@ skill: gemini-imagegen
           <h2><i class="fa-solid fa-code-pull-request"></i> Code Review Workflow Guide</h2>
 
           <p>
-            You'll spend most of your time here. This workflow is why the plugin exists—to turn code review from a bottleneck into a superpower.
+            You'll spend most of your time here. This workflow is why the plugin exists--to turn code review from a bottleneck into a superpower for your WordPress projects.
           </p>
 
           <h3>Basic Review</h3>
@@ -415,8 +410,8 @@ skill: gemini-imagegen
           <h3>Understanding Findings</h3>
           <p>Every finding gets a priority label. Here's what they mean:</p>
           <ul>
-            <li><span class="badge badge-critical">P1 Critical</span> - Don't merge until this is fixed. Think: SQL injection, data loss, crashes in production.</li>
-            <li><span class="badge badge-important">P2 Important</span> - Fix before shipping. Performance regressions, N+1 queries, shaky architecture.</li>
+            <li><span class="badge badge-critical">P1 Critical</span> - Don't merge until this is fixed. Think: SQL injection, unsanitized user input, data loss, crashes in production.</li>
+            <li><span class="badge badge-important">P2 Important</span> - Fix before shipping. Performance regressions, WordPress coding standard violations, hook priority conflicts.</li>
             <li><span class="badge badge-nice">P3 Nice-to-Have</span> - Would be better, but ship without it if you need to. Documentation, minor cleanup, style issues.</li>
           </ul>
 
@@ -439,7 +434,7 @@ ls todos/*-pending-*.md
           <h2><i class="fa-solid fa-plus"></i> Creating Custom Agents</h2>
 
           <p>
-            The built-in agents cover a lot of ground, but every team has unique needs. Maybe you want a "rails-api-reviewer" that enforces your company's API standards. That's 10 minutes of work.
+            The built-in agents cover a lot of ground, but every team has unique needs. Maybe you want a "wp-woocommerce-reviewer" that enforces your ecommerce coding standards. That's 10 minutes of work.
           </p>
 
           <h3>Agent File Structure</h3>
@@ -485,7 +480,7 @@ You are [role description].
           <h2><i class="fa-solid fa-plus"></i> Creating Custom Skills</h2>
 
           <p>
-            Skills are heavier than agents—they're knowledge bases, not just prompts. You're building a mini library that Claude can reference. Worth the effort for things you do repeatedly.
+            Skills are heavier than agents--they're knowledge bases, not just prompts. You're building a mini library that Claude can reference. Worth the effort for things you do repeatedly.
           </p>
 
           <h3>Skill Directory Structure</h3>

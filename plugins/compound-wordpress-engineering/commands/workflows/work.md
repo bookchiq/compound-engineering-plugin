@@ -184,8 +184,7 @@ This command takes a work document (plan, specification, or todo file) and execu
    # Run full test suite (use project's test command)
    # Examples: bin/rails test, npm test, pytest, go test, etc.
 
-   # Run linting (per CLAUDE.md)
-   # Use linting-agent before pushing to origin
+   # Run linting per project config (phpcs, eslint, etc.)
    ```
 
 2. **Consider Reviewer Agents** (Optional)
@@ -421,7 +420,7 @@ See the `orchestrating-swarms` skill for detailed swarm patterns and best practi
 
 - Follow existing patterns
 - Write tests for new code
-- Run linting before pushing
+- Run linting before pushing (phpcs, eslint, etc.)
 - Use reviewer agents for complex/risky changes only
 
 ### Ship Complete Features
@@ -437,7 +436,7 @@ Before creating PR, verify:
 - [ ] All clarifying questions asked and answered
 - [ ] All TodoWrite tasks marked completed
 - [ ] Tests pass (run project's test command)
-- [ ] Linting passes (use linting-agent)
+- [ ] Linting passes (phpcs, eslint, etc.)
 - [ ] Code follows existing patterns
 - [ ] Figma designs match implementation (if applicable)
 - [ ] Before/after screenshots captured and uploaded (for UI changes)

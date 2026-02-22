@@ -104,6 +104,17 @@ These agents are run ONLY when the PR matches specific criteria. Check the PR fi
 - `data-migration-expert`: Verifies hard-coded mappings match production reality (prevents swapped IDs), checks for orphaned data, validates upgrade routines
 - `deployment-verification-agent`: Produces executable pre/post-deploy checklists with SQL queries, rollback procedures, and monitoring plans
 
+**TRACEABILITY: If PR contains AJAX handlers, REST route registrations, form submissions, or hook callbacks that process user input:**
+
+- Task call-chain-verifier(PR content) - Traces UI→Transport→Hook→Service→Data chains, verifies signatures at boundaries
+
+**When to run:**
+- PR includes `wp_ajax_` action handlers or `admin_post_` handlers
+- PR registers REST routes via `register_rest_route()`
+- PR adds form handlers, meta box save callbacks, or `save_post` hooks
+- PR includes `apiFetch` or AJAX calls in JavaScript files
+- PR modifies hook callbacks that process and persist user input
+
 </conditional_agents>
 
 ### 4. Ultra-Thinking Deep Dive Phases
