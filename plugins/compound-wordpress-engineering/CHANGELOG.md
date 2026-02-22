@@ -5,6 +5,16 @@ All notable changes to the compound-wordpress-engineering plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-02-21
+
+Synced framework-agnostic improvements from upstream EveryInc/compound-engineering-plugin.
+
+### Fixed
+- `lfg.md` / `slfg.md` — Made ralph-wiggum step optional with graceful fallback; added "do not stop" continuity instruction
+- `feature-video.md` — Removed hardcoded R2 URL; added public base URL prerequisite and HTTP 200 validation before PR update
+- `workflows/plan.md` — Fixed spec-flow-analyzer to use fully qualified agent name; enhanced brainstorm intake with 7-step content carry-forward; added `origin:` frontmatter and Sources sections to all templates; added System-Wide Impact sections to MORE and A LOT templates; added mandatory Write Plan File step; added brainstorm cross-check in final review
+- `workflows/work.md` — Added System-Wide Test Check with 5 structured questions for cross-layer validation; added integration test guidance
+
 ## [1.0.0] - 2026-02-21
 
 WordPress fork of [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin) v2.34.0.
