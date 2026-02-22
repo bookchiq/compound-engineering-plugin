@@ -227,15 +227,15 @@ Severity: 🔴 P1 (CRITICAL)
 
 Category: Data Integrity / Security
 
-Description: The google_oauth2_connected callback in GoogleOauthCallbacks concern performs multiple database operations without transaction protection. If any step fails midway, the database is left in an inconsistent state.
+Description: The OAuth callback handler performs multiple database operations without transaction protection. If any step fails midway, the database is left in an inconsistent state.
 
-Location: app/controllers/concerns/google_oauth_callbacks.rb:13-50
+Location: wp-content/plugins/my-plugin/includes/class-oauth-handler.php:13-50
 
 Problem Scenario:
 
-1. User.update succeeds (email changed)
-2. Account.save! fails (validation error)
-3. Result: User has changed email but no associated Account
+1. update_user_meta succeeds (email changed)
+2. wp_insert_post fails (validation error)
+3. Result: User has changed email but no associated post record
 4. Next login attempt fails completely
 
 Operations Without Transaction:

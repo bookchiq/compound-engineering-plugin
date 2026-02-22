@@ -460,7 +460,7 @@ After creating all todo files, present comprehensive summary:
 | Indicator | Project Type |
 |-----------|--------------|
 | `*.xcodeproj`, `*.xcworkspace`, `Package.swift` (iOS) | iOS/macOS |
-| `Gemfile`, `package.json`, `app/views/*`, `*.html.*` | Web |
+| `composer.json`, `package.json`, `wp-content/*`, `*.php`, `*.html` | Web |
 | Both iOS files AND web files | Hybrid (test both) |
 
 </detect_project_type>
@@ -483,13 +483,11 @@ After presenting the Summary Report, offer appropriate testing based on project 
 2. No - skip
 ```
 
-**For Hybrid Projects (e.g., Rails + Hotwire Native):**
+**For Hybrid Projects (e.g., WordPress + WooCommerce + Block Editor):**
 ```markdown
 **"Want to run end-to-end tests?"**
 1. Web only - run `/test-browser`
-2. iOS only - run `/xcode-test`
-3. Both - run both commands
-4. No - skip
+2. No - skip
 ```
 
 </offer_testing>

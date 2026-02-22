@@ -64,13 +64,13 @@ For every data migration or backfill, you must:
 
 - [ ] Is the code path behind a feature flag or environment variable?
 - [ ] If we need to revert, how do we restore the data? Is there a snapshot/backfill procedure?
-- [ ] Are manual scripts written as idempotent rake tasks with SELECT verification?
+- [ ] Are manual scripts written as idempotent WP-CLI commands or admin-ajax handlers with SELECT verification?
 
 ### 6. Structural Refactors & Code Search
 
 - [ ] Search for every reference to removed columns/tables/associations
-- [ ] Check background jobs, admin pages, rake tasks, and views for deleted associations
-- [ ] Do any serializers, APIs, or analytics jobs expect old columns?
+- [ ] Check WP-Cron jobs, admin pages, WP-CLI commands, and templates for deleted associations
+- [ ] Do any REST API response schemas, APIs, or analytics jobs expect old columns?
 - [ ] Document the exact search commands run so future reviewers can repeat them
 
 ## Quick Reference SQL Snippets
@@ -97,8 +97,8 @@ WHERE new_column = '<expected_value>';
 ## Common Bugs to Catch
 
 1. **Swapped IDs** - `1 => TypeA, 2 => TypeB` in code but `1 => TypeB, 2 => TypeA` in production
-2. **Missing error handling** - `.fetch(id)` crashes on unexpected values instead of fallback
-3. **Orphaned eager loads** - `includes(:deleted_association)` causes runtime errors
+2. **Missing error handling** - Direct array access without fallback crashes on unexpected values
+3. **Orphaned queries** - Unnecessary JOINs or meta queries referencing removed data cause runtime errors
 4. **Incomplete dual-write** - New records only write new column, breaking rollback
 
 ## Output Format

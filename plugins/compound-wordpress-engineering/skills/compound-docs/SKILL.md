@@ -317,9 +317,9 @@ Action:
 3. Add link and brief description to appropriate section
 4. Confirm: "✓ Added to [skill-name] skill in [file]"
 
-Example: For Hotwire Native Tailwind variants solution:
-- Add to `hotwire-native/references/resources.md` under "Project-Specific Resources"
-- Add to `hotwire-native/references/examples.md` with link to solution doc
+Example: For a WordPress block editor custom store solution:
+- Add to `wp-development-patterns/references/resources.md` under "Project-Specific Resources"
+- Add to `wp-development-patterns/references/examples.md` with link to solution doc
 
 **Option 5: Create new skill**
 

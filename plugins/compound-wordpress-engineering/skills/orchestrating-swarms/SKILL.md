@@ -883,7 +883,7 @@ Workers grab available tasks from a pool:
 Teammate({ operation: "spawnTeam", team_name: "file-review-swarm" })
 
 // Create many independent tasks (no dependencies)
-for (const file of ["auth.rb", "user.rb", "api_controller.rb", "payment.rb"]) {
+for (const file of ["class-auth.php", "class-user.php", "class-rest-controller.php", "class-payment.php"]) {
   TaskCreate({
     subject: `Review ${file}`,
     description: `Review ${file} for security and code quality issues`,
@@ -949,7 +949,7 @@ Task({
 
     ${research.content}
 
-    Focus on the user_controller.rb endpoints.
+    Focus on the REST API controller endpoints.
   `
 })
 ```
@@ -1567,13 +1567,13 @@ Teammate({ operation: "spawnTeam", team_name: "codebase-review" })
 
 // === CREATE TASK POOL (all independent, no dependencies) ===
 const filesToReview = [
-  "app/models/user.rb",
-  "app/models/payment.rb",
-  "app/controllers/api/v1/users_controller.rb",
-  "app/controllers/api/v1/payments_controller.rb",
-  "app/services/payment_processor.rb",
-  "app/services/notification_service.rb",
-  "lib/encryption_helper.rb"
+  "includes/class-user.php",
+  "includes/class-payment.php",
+  "includes/rest-api/class-users-controller.php",
+  "includes/rest-api/class-payments-controller.php",
+  "includes/services/class-payment-processor.php",
+  "includes/services/class-notification-service.php",
+  "includes/helpers/class-encryption-helper.php"
 ]
 
 for (const file of filesToReview) {

@@ -29,10 +29,10 @@ Investigation results, root cause analysis, and key discoveries.
 - Related issues or patterns discovered
 
 **Example format:**
-- Identified 12 missing test scenarios in `app/models/user_test.rb`
+- Identified 12 missing test scenarios in `tests/test-user.php`
 - Current coverage: 60% of code paths
 - Missing: empty inputs, special characters, large payloads
-- Similar issues exist in `app/models/post_test.rb` (~8 scenarios)
+- Similar issues exist in `tests/test-post.php` (~8 scenarios)
 
 ## Proposed Solutions
 
@@ -90,13 +90,13 @@ Present multiple options with pros, cons, effort estimates, and risk assessment.
 Affected files, related components, database changes, or architectural considerations.
 
 **Affected files:**
-- `app/models/user.rb:45` - full_name method
-- `app/services/user_service.rb:12` - validation logic
-- `test/models/user_test.rb` - existing tests
+- `includes/class-user.php:45` - get_full_name method
+- `includes/class-user-service.php:12` - validation logic
+- `tests/test-user.php` - existing tests
 
 **Related components:**
-- UserMailer (depends on user validation)
-- AccountPolicy (authorization checks)
+- WP_Mail notifications (depends on user validation)
+- Capability checks (authorization)
 
 **Database changes (if any):**
 - Migration needed? Yes / No

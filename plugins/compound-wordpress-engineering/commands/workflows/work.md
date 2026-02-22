@@ -131,7 +131,7 @@ This command takes a work document (plan, specification, or todo file) and execu
    **Commit workflow:**
    ```bash
    # 1. Verify tests pass (use project's test command)
-   # Examples: bin/rails test, npm test, pytest, go test, etc.
+   # Examples: phpunit, npm test, wp-env run tests-cli phpunit, etc.
 
    # 2. Stage only files related to this logical unit (not `git add .`)
    git add <files related to this logical unit>
@@ -182,7 +182,7 @@ This command takes a work document (plan, specification, or todo file) and execu
 
    ```bash
    # Run full test suite (use project's test command)
-   # Examples: bin/rails test, npm test, pytest, go test, etc.
+   # Examples: phpunit, npm test, wp-env run tests-cli phpunit, etc.
 
    # Run linting per project config (phpcs, eslint, etc.)
    ```
@@ -239,7 +239,7 @@ This command takes a work document (plan, specification, or todo file) and execu
 
    **Step 1: Start dev server** (if not running)
    ```bash
-   bin/dev  # Run in background
+   wp-env start  # Or your local WordPress dev server
    ```
 
    **Step 2: Capture screenshots with agent-browser CLI**
@@ -306,7 +306,7 @@ This command takes a work document (plan, specification, or todo file) and execu
 
    ---
 
-   [![Compound Engineered](https://img.shields.io/badge/Compound-Engineered-6366f1)](https://github.com/EveryInc/compound-engineering-plugin) 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+   [![Compound Engineered](https://img.shields.io/badge/Compound-Engineered-6366f1)](https://github.com/bookchiq/compound-engineering-plugin) 🤖 Generated with [Claude Code](https://claude.com/claude-code)
    EOF
    )"
    ```

@@ -88,7 +88,7 @@
 | `resolve_todo_parallel.md` | A | Generic parallel todo resolution |
 | `slfg.md` | A | Generic swarm workflow |
 | `test-browser.md` | A | Generic browser testing |
-| `test-xcode.md` | A | iOS-specific but keep for now |
+| `test-xcode.md` | D | Removed in v1.3.0 (iOS-specific, not applicable to WordPress) |
 | `triage.md` | A | Generic triage |
 | `workflows/brainstorm.md` | A | Generic brainstorming |
 | `workflows/compound.md` | A | Core compound loop |

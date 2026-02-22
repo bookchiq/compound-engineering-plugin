@@ -5,6 +5,28 @@ All notable changes to the compound-wordpress-engineering plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.2] - 2026-02-22
+
+### Fixed
+- `test-browser` command — Replaced Rails route mapping table (`app/views/`, `app/controllers/`, Stimulus controllers) with WordPress patterns (`wp-content/themes/*/templates/`, `src/blocks/*/`, etc.); replaced `bin/dev`/`rails server` prerequisites and server instructions with WordPress equivalents
+- `generate_command` command — Replaced `bin/rails test` and `bundle exec standardrb` example with generic project test/lint commands (`phpunit`, `phpcs`, `eslint`)
+- `workflows:review` command — Replaced `Gemfile` in project type detection with `composer.json`/`wp-content/*`; replaced "Rails + Hotwire Native" hybrid section with "WordPress + WooCommerce + Block Editor"
+- `workflows:work` command — Replaced `bin/rails test` examples with `phpunit`/`wp-env` equivalents; replaced `bin/dev` with `wp-env start`; fixed EveryInc badge URL to bookchiq repository
+- `workflows:plan` command — Replaced `app/services/example_service.rb` file path examples with WordPress PHP equivalents; replaced Ruby code block with PHP; replaced "DHH, Kieran" reviewer references with "WordPress, Security"
+- `triage` command — Replaced Rails concern example (`google_oauth_callbacks.rb`) with WordPress plugin class example
+- `compound-docs` skill — Replaced "Hotwire Native Tailwind variants" example with WordPress block editor custom store example
+- `file-todos` template — Replaced Rails file paths (`app/models/`, `app/services/`, `test/models/`) with WordPress equivalents (`includes/`, `tests/`)
+- `orchestrating-swarms` skill — Replaced all `.rb` file examples and `app/controllers/` paths with WordPress PHP class patterns (`class-*.php`, `includes/rest-api/`)
+- `resolve-pr-parallel` script — Replaced `EveryInc/cora` example repo with `bookchiq/my-plugin`
+
+## [1.3.1] - 2026-02-22
+
+### Fixed
+- `data-migration-expert` agent — Replaced Rails idioms: "rake tasks" → WP-CLI commands, "serializers" → REST API response schemas, `.fetch(id)` → direct array access, `includes(:deleted_association)` → unnecessary JOINs/meta queries
+- `deployment-verification-agent` agent — Replaced `rails db:migrate` and `rake data:backfill` with WP-CLI equivalents; replaced Ruby console verification block with `wp db query` SQL commands
+- `framework-docs-researcher` agent — Replaced all Ruby/gem references: `bundle show` → `composer show`/`npm ls`, `Gemfile.lock` → `composer.lock`/`package-lock.json`, "gem" → "package"
+- `figma-design-sync` agent — Replaced ERB templates with PHP `get_template_part()` examples; added WordPress CSS note about theme.json, preprocessors, and Tailwind as optional tooling
+
 ## [1.3.0] - 2026-02-22
 
 ### Fixed

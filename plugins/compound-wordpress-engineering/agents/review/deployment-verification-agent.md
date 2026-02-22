@@ -70,8 +70,8 @@ For each destructive step:
 
 | Step | Command | Estimated Runtime | Batching | Rollback |
 |------|---------|-------------------|----------|----------|
-| 1. Add column | `rails db:migrate` | < 1 min | N/A | Drop column |
-| 2. Backfill data | `rake data:backfill` | ~10 min | 1000 rows | Restore from backup |
+| 1. Add column | `wp db query "ALTER TABLE ..."` or `register_activation_hook` upgrade routine | < 1 min | N/A | Drop column |
+| 2. Backfill data | `wp eval 'backfill_script();'` or WP-CLI custom command | ~10 min | 1000 rows | Restore from backup |
 | 3. Enable feature | Set flag | Instant | N/A | Disable flag |
 
 ### 4. Post-Deploy Verification (Within 5 Minutes)
@@ -115,14 +115,14 @@ SELECT status, COUNT(*) FROM records GROUP BY status;
 | Missing data count | > 0 for 5 min | /dashboard/data |
 | User reports | Any report | Support queue |
 
-**Sample console verification (run 1 hour after deploy):**
-```ruby
+**Sample verification (run 1 hour after deploy):**
+```bash
 # Quick sanity check
-Record.where(new_column: nil, old_column: [present values]).count
+wp db query "SELECT COUNT(*) FROM {table} WHERE new_column IS NULL AND old_column IS NOT NULL;"
 # Expected: 0
 
 # Spot check random records
-Record.order("RANDOM()").limit(10).pluck(:old_column, :new_column)
+wp db query "SELECT old_column, new_column FROM {table} ORDER BY RAND() LIMIT 10;"
 # Verify mapping is correct
 ```
 
