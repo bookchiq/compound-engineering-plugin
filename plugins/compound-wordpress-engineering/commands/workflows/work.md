@@ -306,7 +306,7 @@ This command takes a work document (plan, specification, or todo file) and execu
 
    ---
 
-   [![Compound Engineered](https://img.shields.io/badge/Compound-Engineered-6366f1)](https://github.com/bookchiq/compound-engineering-plugin) 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+   [![Compound Engineered](https://img.shields.io/badge/Compound-Engineered-6366f1)](https://github.com/bookchiq/compound-wordpress-engineering) 🤖 Generated with [Claude Code](https://claude.com/claude-code)
    EOF
    )"
    ```

@@ -101,7 +101,7 @@ Use the GitHub CLI to create the issue:
 
 ```bash
 gh issue create \
-  --repo bookchiq/compound-engineering-plugin \
+  --repo bookchiq/compound-wordpress-engineering \
   --title "[compound-wordpress-engineering] Bug: [Brief description]" \
   --body "[Formatted bug report from Step 3]" \
   --label "bug,compound-wordpress-engineering"
@@ -110,7 +110,7 @@ gh issue create \
 **Note:** If labels don't exist, create without labels:
 ```bash
 gh issue create \
-  --repo bookchiq/compound-engineering-plugin \
+  --repo bookchiq/compound-wordpress-engineering \
   --title "[compound-wordpress-engineering] Bug: [Brief description]" \
   --body "[Formatted bug report]"
 ```
@@ -127,7 +127,7 @@ After the issue is created:
 ```
 ✅ Bug report submitted successfully!
 
-Issue: https://github.com/bookchiq/compound-engineering-plugin/issues/[NUMBER]
+Issue: https://github.com/bookchiq/compound-wordpress-engineering/issues/[NUMBER]
 Title: [compound-wordpress-engineering] Bug: [description]
 
 Thank you for helping improve the compound-wordpress-engineering plugin!
