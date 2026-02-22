@@ -48,6 +48,7 @@
         <div class="nav-section">
           <h3>On This Page</h3>
           <ul>
+            <li><a href="#v1.3.2">v1.3.2</a></li>
             <li><a href="#v1.3.1">v1.3.1</a></li>
             <li><a href="#v1.3.0">v1.3.0</a></li>
             <li><a href="#v1.2.2">v1.2.2</a></li>
@@ -84,6 +85,64 @@
           <a href="https://keepachangelog.com/">Keep a Changelog</a> conventions.
           This is a WordPress fork of <a href="https://github.com/EveryInc/compound-engineering-plugin">EveryInc/compound-engineering-plugin</a>.
         </p>
+
+        <!-- Version 1.3.2 -->
+        <section id="v1.3.2" class="version-section">
+          <div class="version-header">
+            <h2>v1.3.2</h2>
+            <span class="version-date">2026-02-22</span>
+          </div>
+
+          <div class="changelog-category fixed">
+            <h3><i class="fa-solid fa-bug"></i> Fixed</h3>
+            <ul>
+              <li>
+                <strong><code>test-browser</code> command</strong> - Replaced Rails route mapping table
+                (<code>app/views/</code>, <code>app/controllers/</code>, Stimulus controllers) with WordPress
+                patterns (<code>wp-content/themes/*/templates/</code>, <code>src/blocks/*/</code>, etc.);
+                replaced <code>bin/dev</code>/<code>rails server</code> prerequisites with WordPress equivalents.
+              </li>
+              <li>
+                <strong><code>generate_command</code> command</strong> - Replaced <code>bin/rails test</code>
+                and <code>bundle exec standardrb</code> examples with generic project test/lint commands
+                (<code>phpunit</code>, <code>phpcs</code>, <code>eslint</code>).
+              </li>
+              <li>
+                <strong><code>workflows:review</code> command</strong> - Replaced <code>Gemfile</code> in
+                project type detection with <code>composer.json</code>/<code>wp-content/*</code>; replaced
+                "Rails + Hotwire Native" hybrid section with "WordPress + WooCommerce + Block Editor".
+              </li>
+              <li>
+                <strong><code>workflows:work</code> command</strong> - Replaced <code>bin/rails test</code>
+                examples with <code>phpunit</code>/<code>wp-env</code> equivalents; replaced <code>bin/dev</code>
+                with <code>wp-env start</code>; fixed EveryInc badge URL to bookchiq repository.
+              </li>
+              <li>
+                <strong><code>workflows:plan</code> command</strong> - Replaced Rails file path examples
+                with WordPress PHP equivalents; replaced Ruby code block with PHP.
+              </li>
+              <li>
+                <strong><code>triage</code> command</strong> - Replaced Rails concern example with WordPress
+                plugin class example.
+              </li>
+              <li>
+                <strong><code>compound-docs</code> skill</strong> - Replaced "Hotwire Native Tailwind variants"
+                example with WordPress block editor custom store example.
+              </li>
+              <li>
+                <strong><code>file-todos</code> template</strong> - Replaced Rails file paths with WordPress equivalents.
+              </li>
+              <li>
+                <strong><code>orchestrating-swarms</code> skill</strong> - Replaced all <code>.rb</code> file
+                examples with WordPress PHP class patterns.
+              </li>
+              <li>
+                <strong><code>resolve-pr-parallel</code> script</strong> - Replaced <code>EveryInc/cora</code>
+                example repo with <code>bookchiq/my-plugin</code>.
+              </li>
+            </ul>
+          </div>
+        </section>
 
         <!-- Version 1.3.1 -->
         <section id="v1.3.1" class="version-section">
