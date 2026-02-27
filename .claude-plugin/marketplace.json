@@ -11,14 +11,14 @@
   "plugins": [
     {
       "name": "compound-wordpress-engineering",
-      "description": "AI-powered WordPress development tools that get smarter with every use. Make each unit of engineering work easier than the last. Includes 29 specialized agents, 21 commands, and 17 skills.",
-      "version": "1.3.2",
+      "description": "AI-powered WordPress development tools that get smarter with every use. Make each unit of engineering work easier than the last. Includes 30 specialized agents, 21 commands, and 22 skills.",
+      "version": "1.5.0",
       "author": {
         "name": "Sarah Lewis",
         "url": "https://github.com/bookchiq"
       },
       "homepage": "https://github.com/bookchiq/compound-wordpress-engineering",
-      "tags": ["ai-powered", "compound-engineering", "workflow-automation", "code-review", "quality", "knowledge-management", "wordpress", "php", "gutenberg", "ai-building-blocks"],
+      "tags": ["ai-powered", "compound-engineering", "workflow-automation", "code-review", "quality", "knowledge-management", "wordpress", "php", "gutenberg", "ai-building-blocks", "testing", "static-analysis"],
       "source": "./plugins/compound-wordpress-engineering"
     }
   ]

@@ -203,9 +203,9 @@ docs/
 │   └── main.js          # Interactivity (theme toggle, mobile nav)
 └── pages/
     ├── getting-started.html  # Installation and quick start
-    ├── agents.html           # All 29 agents reference
+    ├── agents.html           # All 30 agents reference
     ├── commands.html         # All 21 commands reference
-    ├── skills.html           # All 17 skills reference
+    ├── skills.html           # All 22 skills reference
     ├── mcp-servers.html      # MCP servers reference
     └── changelog.html        # Version history
 ```

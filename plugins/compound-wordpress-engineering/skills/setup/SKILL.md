@@ -130,6 +130,53 @@ options:
     description: "All above + git history, data integrity, agent-native, schema drift."
 ```
 
+## Step 3b: Test Environment & Static Analysis (3 questions, Customize path only)
+
+**d. Test environment:**
+
+```
+question: "What test environment do you use?"
+header: "Testing"
+options:
+  - label: "WP Playground (Recommended)"
+    description: "Disposable instances via npx @wp-playground/cli. Fast, no Docker needed."
+  - label: "wp-env"
+    description: "Official WordPress development environment (@wordpress/env)"
+  - label: "Local / MAMP / Custom"
+    description: "Local by Flywheel, MAMP, Docker, or other local server"
+  - label: "None"
+    description: "No local test environment configured"
+```
+
+**e. Static analysis tools** — multiSelect:
+
+Auto-detect which tools are installed and pre-select them:
+
+```bash
+vendor/bin/phpcs --version 2>/dev/null && echo "phpcs:installed"
+vendor/bin/phpstan --version 2>/dev/null && echo "phpstan:installed"
+npx eslint --version 2>/dev/null && echo "eslint:installed"
+vendor/bin/phpunit --version 2>/dev/null && echo "phpunit:installed"
+```
+
+```
+question: "Which static analysis tools are available? (auto-detected, confirm or adjust)"
+header: "Analysis"
+multiSelect: true
+options:
+  - label: "PHPCS"
+    description: "PHP_CodeSniffer with WordPress standards (wp-phpcs skill)"
+  - label: "PHPStan"
+    description: "Static analysis for type safety (wp-phpstan skill)"
+  - label: "ESLint"
+    description: "JavaScript linting with @wordpress/eslint-plugin (wp-eslint skill)"
+  - label: "PHPUnit"
+    description: "Test runner for unit and integration tests (wp-testing skill)"
+```
+
+If PHPCS is not installed, recommend: "Install with: `skill: wp-phpcs` → run `setup-phpcs.sh`"
+If PHPStan is not installed, recommend: "Install with: `skill: wp-phpstan` → run `setup-phpstan.sh`"
+
 ## Step 4: Build Agent List and Write File
 
 **Project-type-specific agents:**
@@ -161,6 +208,13 @@ Write `compound-engineering.local.md`:
 ---
 review_agents: [{computed agent list}]
 plan_review_agents: [{computed plan agent list}]
+test_environment: {wp-playground | wp-env | local | custom | none}
+test_server_url: {http://localhost:9400 | http://localhost:8888 | custom URL}
+static_analysis:
+  phpcs: {true | false}
+  phpstan: {true | false}
+  eslint: {true | false}
+  tests: {true | false}
 ---
 
 # Review Context
@@ -174,6 +228,11 @@ Examples:
 - "Performance-critical: we serve 10k req/s on the main query"
 - "Block theme: all customization should go through theme.json, not CSS"
 ```
+
+**Default values for Auto-configure path:**
+- `test_environment`: `none` (user hasn't specified)
+- `test_server_url`: `http://localhost:9400` (WP Playground default)
+- `static_analysis`: auto-detected from installed tools
 
 ## Step 5: Confirm
 

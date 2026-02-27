@@ -6,15 +6,15 @@ argument-hint: "[PR number, branch name, or 'current' for current branch]"
 
 # Browser Test Command
 
-<command_purpose>Run end-to-end browser tests on pages affected by a PR or branch changes using agent-browser CLI.</command_purpose>
+<command_purpose>Run end-to-end browser tests on pages affected by a PR or branch changes using Playwright MCP (preferred) or agent-browser CLI (fallback).</command_purpose>
 
-## CRITICAL: Use agent-browser CLI Only
+## Tool Selection
 
-**DO NOT use Chrome MCP tools (mcp__claude-in-chrome__*).**
+**Primary: Playwright MCP** — Use `mcp__playwright__*` tools when the Playwright MCP server is configured. These provide structured browser automation with snapshot-based element selection.
 
-This command uses the `agent-browser` CLI exclusively. The agent-browser CLI is a Bash-based tool from Vercel that runs headless Chromium. It is NOT the same as Chrome browser automation via MCP.
+**Fallback: agent-browser CLI** — If Playwright MCP tools are not available (tool calls fail), fall back to the `agent-browser` CLI. See the `agent-browser` skill for detailed usage.
 
-If you find yourself calling `mcp__claude-in-chrome__*` tools, STOP. Use `agent-browser` Bash commands instead.
+**DO NOT use Chrome MCP tools (mcp__claude-in-chrome__*).** These are for a different purpose.
 
 ## Introduction
 
@@ -29,53 +29,41 @@ This command tests affected pages in a real browser, catching issues that unit t
 ## Prerequisites
 
 <requirements>
-- Local development server running (e.g., `wp-env start`, Local by Flywheel, MAMP, or `npm run dev`)
-- agent-browser CLI installed (see Setup below)
+- Local development server running (WP Playground, wp-env, Local by Flywheel, MAMP, or custom)
+- Playwright MCP server configured in plugin.json (preferred) OR agent-browser CLI installed
 - Git repository with changes to test
 </requirements>
 
-## Setup
-
-**Check installation:**
-```bash
-command -v agent-browser >/dev/null 2>&1 && echo "Installed" || echo "NOT INSTALLED"
-```
-
-**Install if needed:**
-```bash
-npm install -g agent-browser
-agent-browser install  # Downloads Chromium (~160MB)
-```
-
-See the `agent-browser` skill for detailed usage.
-
 ## Main Tasks
 
-### 0. Verify agent-browser Installation
+### 0. Detect Browser Automation Tool
 
-Before starting ANY browser testing, verify agent-browser is installed:
+Check which tool is available:
 
-```bash
-command -v agent-browser >/dev/null 2>&1 && echo "Ready" || (echo "Installing..." && npm install -g agent-browser && agent-browser install)
+```
+# Try Playwright MCP first
+mcp__playwright__browser_navigate({ url: "about:blank" })
 ```
 
-If installation fails, inform the user and stop.
+If Playwright MCP is available, use it for all browser interactions. If it fails, fall back to agent-browser:
 
-### 1. Ask Browser Mode
+```bash
+command -v agent-browser >/dev/null 2>&1 && echo "agent-browser: Ready" || echo "agent-browser: NOT INSTALLED"
+```
 
-<ask_browser_mode>
+If neither is available, inform the user and stop.
 
-Before starting tests, ask user if they want to watch the browser:
+### 1. Detect Server URL
 
-Use AskUserQuestion with:
-- Question: "Do you want to watch the browser tests run?"
-- Options:
-  1. **Headed (watch)** - Opens visible browser window so you can see tests run
-  2. **Headless (faster)** - Runs in background, faster but invisible
+Determine the test server URL in this order:
 
-Store the choice and use `--headed` flag when user selects "Headed".
+1. Read `compound-engineering.local.md` for `test_server_url` setting
+2. Check if WP Playground is running: `curl -s -o /dev/null -w "%{http_code}" http://localhost:9400 2>/dev/null`
+3. Check wp-env default: `curl -s -o /dev/null -w "%{http_code}" http://localhost:8888 2>/dev/null`
+4. Check common dev ports: `8080`, `3000`, `80`
+5. If no server found, offer to start WP Playground via the `wp-playground` skill
 
-</ask_browser_mode>
+Store the detected URL as `$SERVER_URL` for all subsequent steps.
 
 ### 2. Determine Test Scope
 
@@ -125,20 +113,26 @@ Build a list of URLs to test based on the mapping.
 
 <check_server>
 
-Before testing, verify the local server is accessible:
+**With Playwright MCP:**
+```
+mcp__playwright__browser_navigate({ url: "$SERVER_URL" })
+mcp__playwright__browser_snapshot()
+```
 
+**With agent-browser:**
 ```bash
-agent-browser open http://localhost:3000
+agent-browser open $SERVER_URL
 agent-browser snapshot -i
 ```
 
 If server is not running, inform user:
 ```markdown
-**Server not running**
+**Server not running at $SERVER_URL**
 
-Please start your development server:
-- WordPress: `wp-env start`, Local by Flywheel, MAMP, or Docker
-- Node/Next.js: `npm run dev`
+Start a development server:
+- WP Playground: `npx @wp-playground/cli@latest server --auto-mount --port=9400`
+- wp-env: `npx wp-env start`
+- Local by Flywheel, MAMP, or Docker
 
 Then run `/test-browser` again.
 ```
@@ -149,37 +143,47 @@ Then run `/test-browser` again.
 
 <test_pages>
 
-For each affected route, use agent-browser CLI commands (NOT Chrome MCP):
+For each affected route:
 
-**Step 1: Navigate and capture snapshot**
+**With Playwright MCP (preferred):**
+
+```
+# Step 1: Navigate
+mcp__playwright__browser_navigate({ url: "$SERVER_URL/[route]" })
+
+# Step 2: Get page snapshot (accessibility tree with element refs)
+mcp__playwright__browser_snapshot()
+
+# Step 3: Verify key elements
+# - Page title/heading present
+# - Primary content rendered
+# - No error messages visible
+# - Forms have expected fields
+
+# Step 4: Test critical interactions
+mcp__playwright__browser_click({ element: "Submit button", ref: "e5" })
+mcp__playwright__browser_snapshot()
+
+# Step 5: Take screenshot
+mcp__playwright__browser_screenshot()
+```
+
+**With agent-browser (fallback):**
+
 ```bash
-agent-browser open "http://localhost:3000/[route]"
+# Step 1: Navigate and capture snapshot
+agent-browser open "$SERVER_URL/[route]"
 agent-browser snapshot -i
-```
 
-**Step 2: For headed mode (visual debugging)**
-```bash
-agent-browser --headed open "http://localhost:3000/[route]"
-agent-browser --headed snapshot -i
-```
+# Step 2: Verify key elements (same checks as above)
 
-**Step 3: Verify key elements**
-- Use `agent-browser snapshot -i` to get interactive elements with refs
-- Page title/heading present
-- Primary content rendered
-- No error messages visible
-- Forms have expected fields
-
-**Step 4: Test critical interactions**
-```bash
-agent-browser click @e1  # Use ref from snapshot
+# Step 3: Test critical interactions
+agent-browser click @e1
 agent-browser snapshot -i
-```
 
-**Step 5: Take screenshots**
-```bash
+# Step 4: Take screenshots
 agent-browser screenshot page-name.png
-agent-browser screenshot --full page-name-full.png  # Full page
+agent-browser screenshot --full page-name-full.png
 ```
 
 </test_pages>
@@ -220,7 +224,7 @@ Did it work correctly?
 When a test fails:
 
 1. **Document the failure:**
-   - Screenshot the error state: `agent-browser screenshot error.png`
+   - Screenshot the error state (Playwright: `mcp__playwright__browser_screenshot()` / agent-browser: `agent-browser screenshot error.png`)
    - Note the exact reproduction steps
 
 2. **Ask user how to proceed:**
@@ -236,19 +240,9 @@ When a test fails:
    3. Skip - Continue testing other pages
    ```
 
-3. **If "Fix now":**
-   - Investigate the issue
-   - Propose a fix
-   - Apply fix
-   - Re-run the failing test
-
-4. **If "Create todo":**
-   - Create `{id}-pending-p1-browser-test-{description}.md`
-   - Continue testing
-
-5. **If "Skip":**
-   - Log as skipped
-   - Continue testing
+3. **If "Fix now":** Investigate, propose fix, apply, re-run
+4. **If "Create todo":** Create `{id}-pending-p1-browser-test-{description}.md`
+5. **If "Skip":** Log as skipped, continue
 
 </failure_handling>
 
@@ -262,16 +256,17 @@ After all tests complete, present summary:
 ## Browser Test Results
 
 **Test Scope:** PR #[number] / [branch name]
-**Server:** http://localhost:3000
+**Server:** $SERVER_URL
+**Tool:** Playwright MCP / agent-browser CLI
 
 ### Pages Tested: [count]
 
 | Route | Status | Notes |
 |-------|--------|-------|
-| `/users` | Pass | |
-| `/settings` | Pass | |
-| `/dashboard` | Fail | Console error: [msg] |
-| `/checkout` | Skip | Requires payment credentials |
+| `/` | Pass | |
+| `/wp-admin/` | Pass | |
+| `/sample-page/` | Fail | Console error: [msg] |
+| `/checkout/` | Skip | Requires payment credentials |
 
 ### Console Errors: [count]
 - [List any errors found]
@@ -281,10 +276,10 @@ After all tests complete, present summary:
 - Email delivery: Confirmed
 
 ### Failures: [count]
-- `/dashboard` - [issue description]
+- `/sample-page/` - [issue description]
 
 ### Created Todos: [count]
-- `005-pending-p1-browser-test-dashboard-error.md`
+- `005-pending-p1-browser-test-page-error.md`
 
 ### Result: [PASS / FAIL / PARTIAL]
 ```
@@ -304,35 +299,49 @@ After all tests complete, present summary:
 /test-browser feature/new-dashboard
 ```
 
-## agent-browser CLI Reference
+## Playwright MCP Reference
 
-**ALWAYS use these Bash commands. NEVER use mcp__claude-in-chrome__* tools.**
+```
+# Navigation
+mcp__playwright__browser_navigate({ url: "..." })      # Navigate to URL
+mcp__playwright__browser_go_back()                      # Go back
+mcp__playwright__browser_go_forward()                   # Go forward
+
+# Page inspection
+mcp__playwright__browser_snapshot()                     # Get accessibility tree with refs
+mcp__playwright__browser_screenshot()                   # Capture screenshot
+
+# Interactions (use refs from snapshot)
+mcp__playwright__browser_click({ element: "...", ref: "e1" })
+mcp__playwright__browser_type({ element: "...", ref: "e2", text: "..." })
+mcp__playwright__browser_select_option({ element: "...", ref: "e3", values: ["..."] })
+mcp__playwright__browser_press_key({ key: "Enter" })
+
+# Wait
+mcp__playwright__browser_wait_for_page_load()
+```
+
+## agent-browser CLI Reference (Fallback)
 
 ```bash
 # Navigation
-agent-browser open <url>           # Navigate to URL
-agent-browser back                 # Go back
-agent-browser close                # Close browser
+agent-browser open <url>               # Navigate to URL
+agent-browser back                     # Go back
+agent-browser close                    # Close browser
 
-# Snapshots (get element refs)
-agent-browser snapshot -i          # Interactive elements with refs (@e1, @e2, etc.)
-agent-browser snapshot -i --json   # JSON output
+# Snapshots
+agent-browser snapshot -i              # Interactive elements with refs
+agent-browser snapshot -i --json       # JSON output
 
-# Interactions (use refs from snapshot)
-agent-browser click @e1            # Click element
-agent-browser fill @e1 "text"      # Fill input
-agent-browser type @e1 "text"      # Type without clearing
-agent-browser press Enter          # Press key
+# Interactions
+agent-browser click @e1                # Click element
+agent-browser fill @e1 "text"          # Fill input
+agent-browser press Enter              # Press key
 
 # Screenshots
 agent-browser screenshot out.png       # Viewport screenshot
-agent-browser screenshot --full out.png # Full page screenshot
+agent-browser screenshot --full out.png # Full page
 
-# Headed mode (visible browser)
-agent-browser --headed open <url>      # Open with visible browser
-agent-browser --headed click @e1       # Click in visible browser
-
-# Wait
-agent-browser wait @e1             # Wait for element
-agent-browser wait 2000            # Wait milliseconds
+# Headed mode
+agent-browser --headed open <url>      # Visible browser
 ```

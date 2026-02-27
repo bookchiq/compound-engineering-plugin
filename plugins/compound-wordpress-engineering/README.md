@@ -8,25 +8,26 @@ Forked from [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/c
 
 | Component | Count |
 |-----------|-------|
-| Agents | 29 |
+| Agents | 30 |
 | Commands | 21 |
-| Skills | 17 |
-| MCP Servers | 1 |
+| Skills | 22 |
+| MCP Servers | 2 |
 
 ## Agents
 
 Agents are organized into categories for easier discovery.
 
-### Review (18)
+### Review (19)
 
 | Agent | Description |
 |-------|-------------|
-| `wp-php-reviewer` | WordPress PHP coding standards, security patterns, and WPCS compliance |
-| `wp-javascript-reviewer` | WordPress JS, block editor, Interactivity API, @wordpress/* packages |
+| `wp-php-reviewer` | WordPress PHP coding standards, security patterns, and WPCS compliance. Runs PHPCS + PHPStan if available. |
+| `wp-javascript-reviewer` | WordPress JS, block editor, Interactivity API, @wordpress/* packages. Runs ESLint if available. |
 | `wp-hooks-reviewer` | WordPress hook system — timing, priorities, removal, custom hooks |
 | `wp-gutenberg-reviewer` | Block editor — deprecations, block.json, SSR, InnerBlocks |
 | `wp-theme-reviewer` | Theme architecture — theme.json, template hierarchy, FSE patterns |
 | `wp-frontend-races-reviewer` | Race conditions in Interactivity API, block editor, AJAX/REST |
+| `wp-test-reviewer` | Test suite quality — isolation, assertions, security paths, coverage |
 | `security-sentinel` | OWASP top 10 + WordPress nonces, capabilities, sanitization, escaping |
 | `performance-oracle` | Performance + WordPress WP_Query, caching, hook placement, asset loading |
 | `schema-drift-detector` | Detect unrelated dbDelta/schema changes, verify version tracking |
@@ -106,8 +107,18 @@ Agents are organized into categories for easier discovery.
 | Skill | Description |
 |-------|-------------|
 | `wp-development-patterns` | WordPress patterns, coding standards, and best practices |
-| `setup` | Configure review agents for your WordPress project |
+| `setup` | Configure review agents, test environment, and static analysis for your WordPress project |
 | `wp-ai-building-blocks` | Abilities API, AI Client SDK, MCP Adapter, and AI Experiments reference |
+
+### Testing & Quality
+
+| Skill | Description |
+|-------|-------------|
+| `wp-testing` | Scaffold and run WordPress test suites (PHPUnit, wp-browser, Playwright) |
+| `wp-playground` | Start and manage WordPress Playground instances for local testing |
+| `wp-phpcs` | Run PHP_CodeSniffer with WordPress Coding Standards |
+| `wp-phpstan` | Run PHPStan static analysis with WordPress extensions |
+| `wp-eslint` | Run ESLint with @wordpress/eslint-plugin |
 
 ### Architecture & Tools
 
@@ -134,16 +145,19 @@ Agents are organized into categories for easier discovery.
 
 | Skill | Description |
 |-------|-------------|
-| `agent-browser` | Browser automation via agent-browser CLI |
+| `agent-browser` | Browser automation via agent-browser CLI (fallback for Playwright MCP) |
 | `gemini-imagegen` | Image generation via Gemini API |
 | `rclone` | Cloud storage file transfer |
 
 ## WordPress-Specific Features
 
-- **6 new WordPress review agents** for PHP, JS, hooks, Gutenberg, themes, and race conditions
+- **7 WordPress review agents** for PHP, JS, hooks, Gutenberg, themes, race conditions, and test quality
+- **Static analysis integration** — wp-php-reviewer and wp-javascript-reviewer run PHPCS/PHPStan/ESLint before prompt-based analysis
+- **Testing infrastructure** — wp-testing skill scaffolds PHPUnit, wp-browser, and test patterns with TDD workflow
+- **WP Playground integration** — disposable WordPress instances for testing via `@wp-playground/cli`
 - **Enhanced security-sentinel** with nonces, capabilities, sanitization/escaping
 - **Enhanced performance-oracle** with WP_Query, caching, hook placement patterns
-- **WordPress setup skill** auto-detects plugin/theme/block projects
+- **WordPress setup skill** auto-detects plugin/theme/block projects, test environments, and static analysis tools
 - **AI Building Blocks support** — Abilities API, AI Client SDK, MCP Adapter review agent + skill with 4 reference files
 - **wp-development-patterns skill** with 7 reference files
 
@@ -152,6 +166,7 @@ Agents are organized into categories for easier discovery.
 | Server | Description |
 |--------|-------------|
 | `context7` | Framework documentation lookup (100+ frameworks) |
+| `playwright` | Browser automation for end-to-end testing via Playwright |
 
 ## Installation
 
@@ -161,7 +176,7 @@ claude /plugin install compound-wordpress-engineering
 
 ## Recommended Companion Skills
 
-This plugin focuses on review agents, workflow automation, and compounding knowledge. For deep WordPress API reference and testing coverage, install these community skills alongside it:
+This plugin now includes built-in testing (wp-testing, wp-playground), static analysis (wp-phpcs, wp-phpstan, wp-eslint), and browser testing (Playwright MCP). For deep WordPress API reference, install these community skills alongside it:
 
 ### Official WordPress Collection
 
@@ -177,12 +192,6 @@ npx skills add https://github.com/wordpress/agent-skills --skill wp-rest-api
 # WP-CLI & Ops — migrations, search-replace, multisite, cron
 npx skills add https://github.com/wordpress/agent-skills --skill wp-wpcli-and-ops
 
-# PHPStan — static analysis with WordPress-specific type annotations
-npx skills add https://github.com/wordpress/agent-skills --skill wp-phpstan
-
-# Playground — disposable local WordPress instances for testing
-npx skills add https://github.com/wordpress/agent-skills --skill wp-playground
-
 # Block development — scaffolding, block.json, dynamic blocks, deprecations
 npx skills add https://github.com/wordpress/agent-skills --skill wp-block-development
 
@@ -194,13 +203,6 @@ npx skills add https://github.com/wordpress/agent-skills --skill wp-performance
 
 # Plugin development — architecture, lifecycle, admin UI, security
 npx skills add https://github.com/wordpress/agent-skills --skill wp-plugin-development
-```
-
-### Testing & QA
-
-```bash
-# PHPUnit, WP_Mock, PHPCS, GitHub Actions CI/CD for WordPress
-npx skills add https://github.com/bobmatnyc/claude-mpm-skills --skill wordpress-testing-qa
 ```
 
 ### WordPress.org Compliance

@@ -79,6 +79,26 @@ This command takes a work document (plan, specification, or todo file) and execu
    - Include testing and quality check tasks
    - Keep tasks specific and completable
 
+4. **Establish Testing Strategy**
+
+   Read `compound-engineering.local.md` for `test_environment` and `static_analysis` settings. Then check for existing test infrastructure:
+
+   ```bash
+   # Check for existing tests
+   test -f phpunit.xml.dist && echo "PHPUnit: configured" || echo "PHPUnit: not found"
+   test -d tests && echo "Tests dir: exists" || echo "Tests dir: missing"
+   ```
+
+   **If no tests exist and work involves code changes:**
+   - Scaffold test infrastructure using the `wp-testing` skill
+   - For each implementation task in the todo list, create a corresponding test task
+   - Test tasks should come before or alongside implementation tasks (TDD)
+
+   **Skip testing strategy for:**
+   - Documentation-only changes
+   - Configuration-only changes (phpcs.xml, composer.json, .gitignore)
+   - Plan/spec updates
+
 ### Phase 2: Execute
 
 1. **Task Execution Loop**
@@ -90,8 +110,14 @@ This command takes a work document (plan, specification, or todo file) and execu
      - Mark task as in_progress in TodoWrite
      - Read any referenced files from the plan
      - Look for similar patterns in codebase
-     - Implement following existing conventions
-     - Write tests for new functionality
+     - If test_environment configured and task involves code:
+       - Write test first (RED) — describe the desired behavior
+       - Confirm test fails
+       - Implement minimum code (GREEN) — make the test pass
+       - Confirm test passes
+       - Refactor if needed — keep tests green
+       - (Skip TDD for trivial/config/UI-only changes)
+     - Otherwise: implement following existing conventions, write tests after
      - Run System-Wide Test Check (see below)
      - Run tests after changes
      - Mark task as completed in TodoWrite
@@ -108,6 +134,7 @@ This command takes a work document (plan, specification, or todo file) and execu
    | **Can failure leave orphaned state?** If your code persists state (DB row, cache, file) before calling an external service, what happens when the service fails? Does retry create duplicates? | Trace the failure path with real objects. If state is created before the risky call, test that failure cleans up or that retry is idempotent. |
    | **What other interfaces expose this?** Mixins, DSLs, alternative entry points (Agent vs Chat vs ChatMethods). | Grep for the method/behavior in related classes. If parity is needed, add it now — not as a follow-up. |
    | **Do error strategies align across layers?** Retry middleware + application fallback + framework error handling — do they conflict or create double execution? | List the specific error classes at each layer. Verify your rescue list matches what the lower layer actually raises. |
+   | **Are there tests for this change?** If the project has test infrastructure (`phpunit.xml.dist`, `tests/`), does this change have corresponding tests? | Check if a test file covers the modified code. If not, write at least one test for the happy path and one for the error path. |
 
    **When to skip:** Leaf-node changes with no callbacks, no state persistence, no parallel interfaces. If the change is purely additive (new helper method, new view partial), the check takes 10 seconds and the answer is "nothing fires, skip."
 
@@ -242,9 +269,17 @@ This command takes a work document (plan, specification, or todo file) and execu
    wp-env start  # Or your local WordPress dev server
    ```
 
-   **Step 2: Capture screenshots with agent-browser CLI**
+   **Step 2: Capture screenshots**
+
+   Preferred: Use Playwright MCP tools (available when Playwright MCP server is configured):
+   ```
+   mcp__playwright__browser_navigate({ url: "http://localhost:9400/[route]" })
+   mcp__playwright__browser_screenshot()
+   ```
+
+   Fallback: Use agent-browser CLI if Playwright MCP is unavailable:
    ```bash
-   agent-browser open http://localhost:3000/[route]
+   agent-browser open http://localhost:9400/[route]
    agent-browser snapshot -i
    agent-browser screenshot output.png
    ```

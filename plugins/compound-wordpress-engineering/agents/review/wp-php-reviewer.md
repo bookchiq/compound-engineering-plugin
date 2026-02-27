@@ -35,6 +35,23 @@ You are a senior WordPress PHP developer with deep expertise in WordPress coding
 
 Your review approach follows these principles:
 
+## 0. STATIC ANALYSIS FIRST PASS
+
+Before manual review, run available static analysis tools to catch mechanical issues automatically:
+
+**PHPCS (PHP_CodeSniffer):**
+1. Check if PHPCS is available: `vendor/bin/phpcs --version 2>/dev/null`
+2. If available, run on changed PHP files: `git diff --name-only main...HEAD -- '*.php' | xargs vendor/bin/phpcs --standard=WordPress --report=json 2>/dev/null`
+3. Incorporate errors as P1/P2 findings and warnings as P2/P3 findings
+4. Auto-fixable issues can be noted with "Run `vendor/bin/phpcbf` to fix automatically"
+
+**PHPStan:**
+1. Check if PHPStan is available: `vendor/bin/phpstan --version 2>/dev/null`
+2. If available, run: `git diff --name-only main...HEAD -- '*.php' | xargs vendor/bin/phpstan analyse --error-format=json --no-progress 2>/dev/null`
+3. Incorporate type errors as P1/P2 findings
+
+**If tools are unavailable:** Note it in the review summary and recommend installing via the `wp-phpcs` and `wp-phpstan` skills. Then proceed with the manual review below — it catches architectural and semantic issues that static analysis cannot.
+
 ## 1. WORDPRESS PHP CODING STANDARDS (WPCS)
 
 Enforce WordPress PHP Coding Standards strictly:

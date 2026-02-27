@@ -59,6 +59,68 @@ The following paths are compound-engineering pipeline artifacts and must never b
 If a review agent flags any file in these directories for cleanup or removal, discard that finding during synthesis. Do not create a todo for it.
 </protected_artifacts>
 
+#### Static Analysis Phase
+
+Before running review agents, detect and run available static analysis tools on changed files:
+
+<static_analysis>
+
+1. **Detection** — Check which tools are available in the project:
+   ```bash
+   # PHPCS
+   vendor/bin/phpcs --version 2>/dev/null && echo "phpcs:available" || echo "phpcs:unavailable"
+   # PHPStan
+   vendor/bin/phpstan --version 2>/dev/null && echo "phpstan:available" || echo "phpstan:unavailable"
+   # ESLint
+   npx eslint --version 2>/dev/null && echo "eslint:available" || echo "eslint:unavailable"
+   # PHPUnit
+   vendor/bin/phpunit --version 2>/dev/null && echo "phpunit:available" || echo "phpunit:unavailable"
+   ```
+
+2. **Execution** — Run detected tools in parallel on changed files:
+   ```bash
+   # PHPCS (if available)
+   git diff --name-only main...HEAD -- '*.php' | xargs vendor/bin/phpcs --standard=WordPress --report=json 2>/dev/null
+   # PHPStan (if available)
+   git diff --name-only main...HEAD -- '*.php' | xargs vendor/bin/phpstan analyse --error-format=json --no-progress 2>/dev/null
+   # ESLint (if available)
+   git diff --name-only main...HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' | xargs npx eslint --format=json 2>/dev/null
+   ```
+
+3. **Results packaging** — Compile a Static Analysis Summary:
+   ```
+   ## Static Analysis Summary
+   - PHPCS: [available/unavailable] — [X errors, Y warnings]
+   - PHPStan: [available/unavailable] — [X errors]
+   - ESLint: [available/unavailable] — [X errors, Y warnings]
+   - PHPUnit: [available/unavailable]
+   - Top violations: [list top 3-5 issues]
+   ```
+
+4. **Pass to agents** — Include the summary as context when launching parallel review agents below.
+
+5. **Graceful degradation** — If no tools are available, note the recommendation to install them via `wp-phpcs`, `wp-phpstan`, and `wp-eslint` skills, then proceed with prompt-only review.
+
+</static_analysis>
+
+#### Test Coverage Check
+
+<test_coverage_check>
+
+Check if the PR includes appropriate test coverage:
+
+1. **Does the PR include test files?** Check for files matching `tests/`, `*Test.php`, `test-*.php`
+2. **Does the project have test infrastructure?** Check for `phpunit.xml.dist`, `tests/` directory
+3. **New functionality without tests?** If the PR adds new features, REST endpoints, hooks, or data operations but no corresponding test files → create a P2 finding
+4. **If test files exist in PR** → run the `wp-test-reviewer` agent on them (add to parallel agents below)
+5. **If PHPUnit is available and phpunit.xml.dist exists** → offer to run test suite:
+   ```bash
+   vendor/bin/phpunit 2>/dev/null
+   ```
+   Create P1 findings for any test failures.
+
+</test_coverage_check>
+
 #### Load Review Agents
 
 Read `compound-engineering.local.md` in the project root. If found, use `review_agents` from YAML frontmatter. If the markdown body contains review context, pass it to each agent as additional instructions.
@@ -103,6 +165,14 @@ These agents are run ONLY when the PR matches specific criteria. Check the PR fi
 - `schema-drift-detector`: Cross-references database schema changes against PR purpose, verifies version tracking via get_option/update_option, checks $wpdb->prefix usage
 - `data-migration-expert`: Verifies hard-coded mappings match production reality (prevents swapped IDs), checks for orphaned data, validates upgrade routines
 - `deployment-verification-agent`: Produces executable pre/post-deploy checklists with SQL queries, rollback procedures, and monitoring plans
+
+**TESTING: If PR contains test files (`tests/`, `*Test.php`, `test-*.php`):**
+
+- Task wp-test-reviewer(PR content + test files) - Review test quality, isolation, assertions, and security path coverage
+
+**When to run:**
+- PR includes files matching `tests/`, `*Test.php`, `test-*.php`
+- PR modifies existing test files
 
 **TRACEABILITY: If PR contains AJAX handlers, REST route registrations, form submissions, or hook callbacks that process user input:**
 

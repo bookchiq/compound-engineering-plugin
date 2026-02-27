@@ -5,6 +5,26 @@ All notable changes to the compound-wordpress-engineering plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-02-27
+
+### Added
+- `wp-playground` skill — Start and manage WordPress Playground instances for local testing. Includes startup/stop/status scripts, blueprint patterns reference, and evaluation procedure for comparing Playground implementations.
+- `wp-testing` skill — Scaffold and run WordPress test suites (PHPUnit, wp-browser, Playwright). Includes scaffold and run scripts, plus 4 reference docs: PHPUnit setup, test patterns, TDD workflow, and fixture patterns.
+- `wp-phpcs` skill — Run PHP_CodeSniffer with WordPress Coding Standards. Includes setup and run scripts, plus phpcs.xml.dist configuration templates.
+- `wp-phpstan` skill — Run PHPStan static analysis with WordPress extensions (`szepeviktor/phpstan-wordpress`). Includes setup and run scripts, plus phpstan.neon configuration templates.
+- `wp-eslint` skill — Run ESLint with `@wordpress/eslint-plugin`. Includes run script and .eslintrc.json configuration templates.
+- `wp-test-reviewer` agent — Reviews test suites for isolation, meaningful assertions, security path coverage, integration patterns, naming conventions, and anti-patterns.
+- Playwright MCP server — Browser automation for end-to-end testing, replaces agent-browser as the primary tool.
+
+### Changed
+- `wp-php-reviewer` agent — Added Step 0: runs PHPCS and PHPStan (if available) before prompt-based analysis, incorporating tool findings into review.
+- `wp-javascript-reviewer` agent — Added Step 0: runs ESLint (if available) before prompt-based analysis, incorporating tool findings into review.
+- `workflows:work` command — Added "Establish Testing Strategy" step in Phase 1 (scaffolds tests if none exist), added red/green TDD checkpoints in Phase 2 task loop, added test coverage row to System-Wide Test Check, updated Phase 4 screenshots to use Playwright MCP with agent-browser fallback.
+- `workflows:review` command — Added Static Analysis Phase (detects and runs PHPCS/PHPStan/ESLint on changed files before agents), added Test Coverage Check (flags new features without tests), added wp-test-reviewer as conditional agent for PRs containing test files.
+- `test-browser` command — Rewritten to use Playwright MCP as primary tool with agent-browser as fallback. Auto-detects server URL (WP Playground, wp-env, custom). Reads `test_server_url` from settings.
+- `setup` skill — Added test environment detection (WP Playground, wp-env, Local/MAMP), static analysis tool detection (PHPCS, PHPStan, ESLint, PHPUnit), new questions in Customize path, extended `compound-engineering.local.md` output with `test_environment`, `test_server_url`, and `static_analysis` frontmatter fields.
+- Plugin keywords — Added `testing`, `phpunit`, `phpcs`, `phpstan`, `static-analysis`, `playwright`. Removed `agent-browser`.
+
 ## [1.3.2] - 2026-02-22
 
 ### Fixed
