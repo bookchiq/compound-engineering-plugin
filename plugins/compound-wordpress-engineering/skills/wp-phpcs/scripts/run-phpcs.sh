@@ -47,7 +47,7 @@ case $MODE in
       exit 0
     fi
     echo "Running PHPCS on staged files..."
-    echo "$FILES" | xargs $PHPCS $STANDARD --report="$FORMAT" || true
+    git diff --cached -z --name-only --diff-filter=d -- '*.php' 2>/dev/null | xargs -0 $PHPCS $STANDARD --report="$FORMAT" || true
     ;;
   changed)
     # Try to find the base branch
@@ -58,6 +58,6 @@ case $MODE in
       exit 0
     fi
     echo "Running PHPCS on changed files (vs $BASE)..."
-    echo "$FILES" | xargs $PHPCS $STANDARD --report="$FORMAT" || true
+    git diff -z --name-only --diff-filter=d "$BASE"...HEAD -- '*.php' 2>/dev/null | xargs -0 $PHPCS $STANDARD --report="$FORMAT" || true
     ;;
 esac

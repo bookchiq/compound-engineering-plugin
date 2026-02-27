@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+validate_port() {
+  if ! [[ "$1" =~ ^[0-9]+$ ]] || [ "$1" -lt 1 ] || [ "$1" -gt 65535 ]; then
+    echo "Error: Invalid port number: $1 (must be 1-65535)"
+    exit 1
+  fi
+}
+
 # playground-stop.sh — Stop running WordPress Playground instances
 #
 # Usage: ./playground-stop.sh [--port PORT]
@@ -15,16 +22,32 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Find processes on the port
-PIDS=$(lsof -ti:"$PORT" 2>/dev/null || true)
+validate_port "$PORT"
 
-if [ -z "$PIDS" ]; then
+# Find and validate processes on the port
+PIDS_RAW=$(lsof -ti:"$PORT" 2>/dev/null || true)
+
+if [ -z "$PIDS_RAW" ]; then
   echo "No process found on port $PORT"
   exit 0
 fi
 
-echo "Stopping Playground on port $PORT..."
-echo "$PIDS" | xargs kill 2>/dev/null
+# Validate PIDs are numeric
+PIDS=""
+for pid in $PIDS_RAW; do
+  if [[ "$pid" =~ ^[0-9]+$ ]]; then
+    PIDS="$PIDS $pid"
+  fi
+done
+PIDS=$(echo "$PIDS" | xargs)  # trim whitespace
+
+if [ -z "$PIDS" ]; then
+  echo "No valid process found on port $PORT"
+  exit 0
+fi
+
+echo "Stopping Playground on port $PORT (PIDs: $PIDS)..."
+kill $PIDS 2>/dev/null || true
 
 # Wait for process to stop
 for i in $(seq 1 5); do
@@ -37,5 +60,10 @@ done
 
 # Force kill if still running
 echo "Force stopping..."
-lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
+FORCE_PIDS=$(lsof -ti:"$PORT" 2>/dev/null || true)
+for pid in $FORCE_PIDS; do
+  if [[ "$pid" =~ ^[0-9]+$ ]]; then
+    kill -9 "$pid" 2>/dev/null || true
+  fi
+done
 echo "Playground stopped."

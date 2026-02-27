@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+validate_port() {
+  if ! [[ "$1" =~ ^[0-9]+$ ]] || [ "$1" -lt 1 ] || [ "$1" -gt 65535 ]; then
+    echo "Error: Invalid port number: $1 (must be 1-65535)"
+    exit 1
+  fi
+}
+
 # playground-start.sh — Start WordPress Playground with project-aware mounting
 #
 # Usage: ./playground-start.sh [--port PORT] [--wp VERSION] [--blueprint FILE]
@@ -18,6 +25,8 @@ while [[ $# -gt 0 ]]; do
     *) shift ;;
   esac
 done
+
+validate_port "$PORT"
 
 # Check prerequisites
 if ! command -v node &>/dev/null; then
@@ -42,6 +51,11 @@ fi
 MOUNT_FLAGS=""
 PROJECT_DIR="$(pwd)"
 PROJECT_NAME="$(basename "$PROJECT_DIR")"
+PROJECT_NAME=$(echo "$PROJECT_NAME" | tr -cd 'a-zA-Z0-9_-')
+if [ -z "$PROJECT_NAME" ]; then
+  echo "Error: Could not determine safe project name from directory."
+  exit 1
+fi
 
 if grep -ql "Plugin Name:" ./*.php 2>/dev/null; then
   echo "Detected: WordPress plugin"
@@ -57,23 +71,32 @@ else
   MOUNT_FLAGS="--auto-mount"
 fi
 
-# Build command
-CMD="npx --yes @wp-playground/cli@latest server $MOUNT_FLAGS --port=$PORT"
+# Build command as array (prevents word splitting/injection)
+CMD=(npx --yes @wp-playground/cli@latest server)
+
+# Add mount flags (may contain spaces in paths)
+if [ "$MOUNT_FLAGS" = "--auto-mount" ]; then
+  CMD+=(--auto-mount)
+else
+  CMD+=("$MOUNT_FLAGS")
+fi
+
+CMD+=("--port=$PORT")
 
 if [ -n "$WP_VERSION" ]; then
-  CMD="$CMD --wp=$WP_VERSION"
+  CMD+=("--wp=$WP_VERSION")
 fi
 
 if [ -n "$BLUEPRINT" ]; then
-  CMD="$CMD --blueprint=$BLUEPRINT"
+  CMD+=("--blueprint=$BLUEPRINT")
 fi
 
 echo "Starting WordPress Playground..."
-echo "Command: $CMD"
+echo "Command: ${CMD[*]}"
 echo ""
 
 # Start in background
-$CMD &
+"${CMD[@]}" &
 PG_PID=$!
 
 # Wait for ready

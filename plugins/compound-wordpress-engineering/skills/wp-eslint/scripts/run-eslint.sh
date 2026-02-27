@@ -43,6 +43,6 @@ case $MODE in
       exit 0
     fi
     echo "Running ESLint on changed files (vs $BASE)..."
-    echo "$FILES" | xargs $ESLINT $FIX $FORMAT || true
+    git diff -z --name-only --diff-filter=d "$BASE"...HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' 2>/dev/null | xargs -0 $ESLINT $FIX $FORMAT || true
     ;;
 esac

@@ -37,6 +37,8 @@ Your review approach follows these principles:
 
 ## 0. STATIC ANALYSIS FIRST PASS
 
+**Check for pre-existing results:** If a Static Analysis Summary was provided in the review context (from the `/workflows:review` command), skip running tools and use those results directly. Only run the tools below when invoked standalone (not through the review workflow).
+
 Before manual review, run available static analysis tools to catch mechanical issues automatically:
 
 **PHPCS (PHP_CodeSniffer):**

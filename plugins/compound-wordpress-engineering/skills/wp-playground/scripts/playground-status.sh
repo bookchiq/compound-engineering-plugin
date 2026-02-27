@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+validate_port() {
+  if ! [[ "$1" =~ ^[0-9]+$ ]] || [ "$1" -lt 1 ] || [ "$1" -gt 65535 ]; then
+    echo "Error: Invalid port number: $1 (must be 1-65535)"
+    exit 1
+  fi
+}
+
 # playground-status.sh — Check WordPress Playground health
 #
 # Usage: ./playground-status.sh [--port PORT]
@@ -14,6 +21,8 @@ while [[ $# -gt 0 ]]; do
     *) shift ;;
   esac
 done
+
+validate_port "$PORT"
 
 echo "WordPress Playground Status"
 echo "==========================="
