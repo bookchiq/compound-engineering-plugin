@@ -5,7 +5,7 @@ This repository is a Claude Code plugin marketplace that distributes the `compou
 ## Repository Structure
 
 ```
-every-marketplace/
+compound-wordpress-engineering/
 ├── .claude-plugin/
 │   └── marketplace.json          # Marketplace catalog (lists available plugins)
 ├── docs/                         # Documentation site (GitHub Pages)
@@ -232,8 +232,8 @@ If you need to update docs manually:
 
 1. **Landing page stats** - Update the numbers in `docs/index.html`:
    ```html
-   <span class="stat-number">24</span>  <!-- agents -->
-   <span class="stat-number">13</span>  <!-- commands -->
+   <span class="stat-number">30</span>  <!-- agents -->
+   <span class="stat-number">21</span>  <!-- commands -->
    ```
 
 2. **Reference pages** - Each page in `docs/pages/` documents all components in that category

@@ -25,6 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `setup` skill — Added test environment detection (WP Playground, wp-env, Local/MAMP), static analysis tool detection (PHPCS, PHPStan, ESLint, PHPUnit), new questions in Customize path, extended `compound-engineering.local.md` output with `test_environment`, `test_server_url`, and `static_analysis` frontmatter fields.
 - Plugin keywords — Added `testing`, `phpunit`, `phpcs`, `phpstan`, `static-analysis`, `playwright`. Removed `agent-browser`.
 
+### Fixed
+- Shell script security — Added PORT validation (numeric, 1-65535) to all playground scripts, replaced string-based command construction with array in `playground-start.sh`, sanitized `PROJECT_NAME` to alphanumeric/hyphens/underscores, added PID validation before `kill` in `playground-stop.sh`.
+- Static analysis scripts — Changed `xargs` to `xargs -0` with `git diff -z` in `run-phpcs.sh`, `run-phpstan.sh`, and `run-eslint.sh` for safe filename handling.
+- Duplicate static analysis — `wp-php-reviewer` and `wp-javascript-reviewer` Step 0 now skips tool execution when results are already provided by `workflows:review`.
+- Playwright MCP version — Pinned to `@playwright/mcp@0.0.68` (was `@latest`).
+- `scaffold-tests.sh` — `--type` parameter now produces differentiated scaffolding for plugin/theme/block (type-aware bootstrap.php and sample integration tests).
+
 ## [1.3.2] - 2026-02-22
 
 ### Fixed
