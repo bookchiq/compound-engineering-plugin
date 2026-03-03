@@ -171,7 +171,11 @@ Agents are organized into categories for easier discovery.
 ## Installation
 
 ```bash
-claude /plugin install compound-wordpress-engineering
+# Step 1: Add the marketplace
+/plugin marketplace add https://github.com/bookchiq/compound-wordpress-engineering
+
+# Step 2: Install the plugin
+/plugin install compound-wordpress-engineering@compound-wordpress-marketplace
 ```
 
 ## Recommended Companion Skills
