@@ -48,6 +48,7 @@
         <div class="nav-section">
           <h3>On This Page</h3>
           <ul>
+            <li><a href="#v1.5.1">v1.5.1</a></li>
             <li><a href="#v1.5.0">v1.5.0</a></li>
             <li><a href="#v1.3.2">v1.3.2</a></li>
             <li><a href="#v1.3.1">v1.3.1</a></li>
@@ -86,6 +87,54 @@
           <a href="https://keepachangelog.com/">Keep a Changelog</a> conventions.
           This is a WordPress fork of <a href="https://github.com/EveryInc/compound-engineering-plugin">EveryInc/compound-engineering-plugin</a>.
         </p>
+
+        <!-- Version 1.5.1 -->
+        <section id="v1.5.1" class="version-section">
+          <div class="version-header">
+            <h2>v1.5.1</h2>
+            <span class="version-date">2026-03-05</span>
+            <span class="version-badge patch">Upstream Bug Fixes</span>
+          </div>
+
+          <div class="changelog-category fixed">
+            <h3><i class="fa-solid fa-bug"></i> Fixed</h3>
+            <ul>
+              <li>
+                <strong>YAML crash</strong> - Quoted unquoted <code>argument-hint</code> values
+                containing <code>[...]</code> brackets in <code>heal-skill</code>,
+                <code>create-agent-skill</code> commands and <code>create-agent-skills</code> skill
+                templates. Unquoted brackets are parsed as YAML arrays, causing crashes or silent data loss.
+              </li>
+              <li>
+                <strong>Skill name mismatch</strong> - Changed <code>resolve-pr-parallel/SKILL.md</code>
+                name field from <code>resolve_pr_parallel</code> (underscores) to
+                <code>resolve-pr-parallel</code> (hyphens) to match directory name per skill compliance checklist.
+              </li>
+              <li>
+                <strong><code>.gitignore</code></strong> - Added <code>.worktrees/</code> to prevent
+                orphan worktree directories from being committed accidentally.
+              </li>
+              <li>
+                <strong><code>setup</code> skill</strong> - Added cross-platform LLM preamble for
+                compatibility with non-Claude LLM backends that lack <code>AskUserQuestion</code> support.
+              </li>
+              <li>
+                <strong><code>workflows:work</code> command</strong> - Removed broken
+                <code>skill: imgup</code> reference (skill does not exist in plugin).
+              </li>
+              <li>
+                <strong><code>workflows:review</code> command</strong> - Removed broken
+                <code>/xcode-test</code> command references; iOS testing section removed as this is a
+                WordPress-focused plugin.
+              </li>
+              <li>
+                <strong>Documentation site</strong> - Fixed stale component counts in CTA
+                (was "29 agents, 17 skills"), updated MCP Servers section from "1 MCP Server" to
+                "2 MCP Servers" with Playwright card.
+              </li>
+            </ul>
+          </div>
+        </section>
 
         <!-- Version 1.5.0 -->
         <section id="v1.5.0" class="version-section">

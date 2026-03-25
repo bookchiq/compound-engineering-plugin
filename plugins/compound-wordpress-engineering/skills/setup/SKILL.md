@@ -4,6 +4,15 @@ description: Configure which review agents run for your project. Auto-detects Wo
 disable-model-invocation: true
 ---
 
+<!-- Interaction Method: This skill uses AskUserQuestion for interactive prompts.
+     If your LLM does not support AskUserQuestion, present each question as a
+     numbered list in plain text and ask the user to reply with the number of
+     their choice. Example:
+       1. Reconfigure
+       2. View current
+       3. Cancel
+     Then parse the user's numeric reply to proceed. -->
+
 # Compound WordPress Engineering Setup
 
 Interactive setup for `compound-engineering.local.md` — configures which agents run during `/workflows:review` and `/workflows:work`.

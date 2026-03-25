@@ -157,7 +157,7 @@ Check:
 cat > ~/.claude/commands/{skill-name}.md << 'EOF'
 ---
 description: {Brief description}
-argument-hint: [{argument hint}]
+argument-hint: "[{argument hint}]"
 allowed-tools: Skill({skill-name})
 ---
 

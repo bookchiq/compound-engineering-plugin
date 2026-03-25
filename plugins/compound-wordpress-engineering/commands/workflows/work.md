@@ -285,13 +285,9 @@ This command takes a work document (plan, specification, or todo file) and execu
    ```
    See the `agent-browser` skill for detailed usage.
 
-   **Step 3: Upload using imgup skill**
-   ```bash
-   skill: imgup
-   # Then upload each screenshot:
-   imgup -h pixhost screenshot.png  # pixhost works without API key
-   # Alternative hosts: catbox, imagebin, beeimg
-   ```
+   **Step 3: Upload screenshots**
+
+   Upload screenshots to a hosting service so they can be embedded in PR descriptions. Use any available image host (e.g., pixhost, catbox, imagebin, beeimg — pixhost works without an API key).
 
    **What to capture:**
    - **New screens**: Screenshot of the new UI

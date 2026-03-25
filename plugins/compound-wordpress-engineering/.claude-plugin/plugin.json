@@ -1,6 +1,6 @@
 {
   "name": "compound-wordpress-engineering",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "AI-powered WordPress development tools. 30 agents, 21 commands, 22 skills, 2 MCP servers for code review, testing, static analysis, and workflow automation.",
   "author": {
     "name": "Sarah Lewis",

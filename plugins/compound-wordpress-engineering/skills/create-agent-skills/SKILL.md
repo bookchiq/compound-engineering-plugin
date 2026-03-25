@@ -188,7 +188,7 @@ Ask: Is this a manual workflow (deploy, commit, triage) or background knowledge 
 ---
 name: my-command
 description: What this command does
-argument-hint: [expected arguments]
+argument-hint: "[expected arguments]"
 disable-model-invocation: true
 allowed-tools: Bash(gh *), Read
 ---

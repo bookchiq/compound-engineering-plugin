@@ -5,6 +5,18 @@ All notable changes to the compound-wordpress-engineering plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-03-05
+
+### Fixed
+- YAML crash: Quoted unquoted `argument-hint` values containing `[...]` brackets in `heal-skill`, `create-agent-skill` commands and `create-agent-skills` skill templates. Unquoted brackets are parsed as YAML arrays, causing crashes or silent data loss.
+- Skill name mismatch: Changed `resolve-pr-parallel/SKILL.md` name field from `resolve_pr_parallel` (underscores) to `resolve-pr-parallel` (hyphens) to match directory name per skill compliance checklist.
+- Added `.worktrees/` to `.gitignore` to prevent orphan worktree directories from being committed accidentally.
+- Added cross-platform LLM preamble to `setup` skill for compatibility with non-Claude LLM backends that lack `AskUserQuestion` support.
+- Removed broken `skill: imgup` reference from `workflows:work` command — skill does not exist in plugin.
+- Removed broken `/xcode-test` command references from `workflows:review` — command does not exist; iOS testing section removed as this is a WordPress-focused plugin.
+- Fixed stale component counts in docs site CTA (was "29 agents, 17 skills" — now "30 agents, 22 skills").
+- Updated docs site MCP Servers section from "1 MCP Server" to "2 MCP Servers" and added Playwright card.
+
 ## [1.5.0] - 2026-02-27
 
 ### Added

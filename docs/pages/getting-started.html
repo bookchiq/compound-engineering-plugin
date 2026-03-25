@@ -117,7 +117,7 @@
             <div class="callout-content">
               <h4>Known Issue: MCP Servers</h4>
               <p>
-                The bundled MCP server (Context7 for docs lookup) doesn't always auto-load. If you need it, there's a manual config step below. Otherwise, ignore this--everything else works fine.
+                The bundled MCP servers (Context7 for docs lookup and Playwright for browser testing) don't always auto-load. If you need them, there's a manual config step below. Otherwise, ignore this--everything else works fine.
               </p>
             </div>
           </div>
@@ -189,6 +189,10 @@ skill: create-agent-skills</code></pre>
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@0.0.68"]
     }
   }
 }</code></pre>
@@ -287,7 +291,7 @@ claude agent wp-gutenberg-reviewer "Review the testimonial block"</code></pre>
             <tbody>
               <tr>
                 <td>Review</td>
-                <td>18</td>
+                <td>19</td>
                 <td>Code review, security audits, performance analysis, WordPress-specific checks</td>
               </tr>
               <tr>
@@ -310,7 +314,7 @@ claude agent wp-gutenberg-reviewer "Review the testimonial block"</code></pre>
 
           <p>
             <a href="agents.html" class="button secondary">
-              <i class="fa-solid fa-arrow-right"></i> View All 29 Agents
+              <i class="fa-solid fa-arrow-right"></i> View All 30 Agents
             </a>
           </p>
         </section>
@@ -385,7 +389,7 @@ skill: wp-development-patterns
 
           <p>
             <a href="skills.html" class="button secondary">
-              <i class="fa-solid fa-arrow-right"></i> View All 17 Skills
+              <i class="fa-solid fa-arrow-right"></i> View All 22 Skills
             </a>
           </p>
         </section>

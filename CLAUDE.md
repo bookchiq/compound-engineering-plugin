@@ -20,7 +20,6 @@ compound-wordpress-engineering/
         ├── agents/                # Specialized AI agents
         ├── commands/              # Slash commands
         ├── skills/                # Skills
-        ├── mcp-servers/           # MCP servers
         ├── README.md              # Plugin documentation
         └── CHANGELOG.md           # Version history
 ```
